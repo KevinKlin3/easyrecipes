@@ -2,8 +2,9 @@
 $pageTitle = "Gallery";
 $pageContent = NULL;
 
+
 $pageContent .= <<<HERE
-<div class="container"
+<div class="column">
 <div class="row">
   <div class="col-sm">
       <div class="card text-dark border-primary" style="width: 18rem;">
