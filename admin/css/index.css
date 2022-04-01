@@ -1,48 +1,31 @@
 *  {
   box-sizing: border-box;
 }
+#img-head {
+  display: flex;
+}
 
-/* .hero-img {
-   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/hero2.jpg");
-   height: 50%;
-   background-position: center;
-   background-repeat: no-repeat;
-   background-size: cover;
-   position: relative;
-} */
- /* Header/Blog Title */
- header  {
-   background-position: center;
-   background-repeat: no-repeat;
-   background-size: 50%;
-   position: relative;
-   background: #FDAC53 ;
- }
-/* Style the top navigation bar */
- /* .topnav {
-   overflow: hidden;
-   background-color: #FDAC53;
-
-.topnav a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;  */
-  
-
-ul {
-list-style-type: none;
-margin: 0;
-padding: 0;
-overflow: hidden;
+nav, ul {
 background-color: #FDAC53;
+position: sticky;
 }
-
-li {
+.logo{
+  display: flex;
+  object-fit: contain;
+  max-height: 40px;
+}
+li{
+  float: left;
+}
+li a{
 float: left;
+display: inline;
 }
+li a:hover{
+  background-color: #00758f;
+  color: white;
+}
+/* drop down css for nav
 li a, .dropbtn {
 display: inline-block;
 color: white;
@@ -51,7 +34,7 @@ padding: 14px 16px;
 text-decoration: none;
 }
 
-li a:hover, .dropdown:hover .dropbtn {
+li a:hover{
 background-color: #00758f;
 color: white;
 }
@@ -81,7 +64,7 @@ text-align: left;
 
 .dropdown:hover .dropdown-content {
 display: block;
-}
+} */
 
 /* Create three unequal columns that floats next to each other */
 .column {
@@ -97,6 +80,7 @@ display: block;
  .column.middle {
    width: 50%;
  }
+
  /* Clear floats after the columns */
  .row:after {
    content: "";
@@ -108,6 +92,11 @@ display: block;
    width: 50%;
    height: auto;
    background: #FDAC53;
+}
+.buttonSearch {
+  background-color: black;
+  border-color: black;
+  float: right;
 }
 /*sign in button @footer*/
 .button {

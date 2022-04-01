@@ -1,6 +1,8 @@
 <?php
 $pageTitle = "Recipe";
 $pageContent = NULL;
+$recipeTitle = Null;
+$recipeContent = Null;
 
 $pageContent .= <<<HERE
 <p>2 different views</p>
