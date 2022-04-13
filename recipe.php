@@ -1,6 +1,10 @@
 <?php
+include 'admin/config.php';
+
+//everything with the page//
 $pageTitle = "Recipe";
 $pageContent = NULL;
+// everything w/ recipe//
 $recipeTitle = Null;
 $recipeContent = Null;
 

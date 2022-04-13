@@ -1,5 +1,3 @@
-<?php
-echo<<<HERE
 <!DOCTYPE html>
 <html lang="en">
     <head >
@@ -21,16 +19,30 @@ echo<<<HERE
     <!--External Style sheet-->
         <link rel="stylesheet"  type="text/css" href="admin\css\index.css">
     <!-- favicon -->
-        <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.ico">
+        <link rel="icon" type="image/png" sizes="32x32" href="admin\images\logo.png">
     </head>
     <body>
+    <!--php here to show hero img on index; other for all other pages-->
+<?php
+ if ($pageTitle == "Home")	{
+   $headerImg =<<<HERE
+       <header class="container-fluid">
+           <img class="img-fluid" src="admin\images\hero5.svg" alt="collage of food images">
+           </header>
+HERE;
+   }else    {
+   $headerImg =<<<HERE
         <header class="container-fluid">
-        <img class="img-fluid" src="admin\images\hero3.jpg" alt="collage of food images">
-        </header>
+           <img class="img-fluid" src="admin\images\header.svg" alt="collage of food images">
+           </header>
+HERE;
+}
+        print $headerImg
+?>
         <!-- Nav Bar -->
             <nav class="navbar navbar-expand-sm  navbar sticky-top">
                 <ul class="navbar-nav">
-                    <li "container-fluid">
+                    <li class="fluid-img">
                         <img  src="admin/images/logo.png" class="navbar-brand" id="logo" alt="logo for page">
                     </li>
                     <li class="navbar-nav">
@@ -52,10 +64,10 @@ echo<<<HERE
                 </form>
             </nav>
         <!-- End of NavBar -->
-HERE;
+        <!--add burger-->
+<?php
 print $pageContent;
-// add third column here ?//
-echo<<<HERE
+?>
 <hr>
     <footer class="container-fluid">
                 <!-- sign in -->
@@ -69,5 +81,3 @@ echo<<<HERE
     </footer>
 </body>
 </html>
-HERE;
-?>

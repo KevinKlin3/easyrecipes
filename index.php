@@ -1,7 +1,8 @@
 <?php
-
+include 'admin/config.php';
 $pageTitle = "Home";
 $pageContent = NULL;
+$pageNumber = 1;
 
 $pageContent .= <<<HERE
 <main>
@@ -31,5 +32,5 @@ $pageContent .= <<<HERE
    </div>
 </main>
 HERE;
-include 'admin/template.php';
+include 'admin/template.html';
 ?>
