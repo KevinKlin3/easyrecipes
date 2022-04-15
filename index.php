@@ -2,7 +2,6 @@
 include '..\admin\config.php';
 $pageTitle = "Home";
 $pageContent = NULL;
-$pageNumber = 1;
 
 $pageContent .= <<<HERE
 <main>

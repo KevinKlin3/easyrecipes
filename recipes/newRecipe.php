@@ -5,8 +5,8 @@ include '..\admin\config.php';
 }
 
 $pageTitle = "New Recipe";
-$title = $content = NULL;
-$invalid_title = $invalid_content = NULL;
+$recipeTitle = $RecipeContent = $recipeImage = NULL;
+$invalid_recipeTitle = $invalid_recipeContent = NULL;
 $pageContent = NULL;
 $msg = NULL;
 
@@ -64,7 +64,7 @@ if(filter_has_var(INPUT_POST, 'delete'))  {
       $stmt->execute();
       $stmt->close();
    }
-   header ("recipe.php");
+   header ("newRecipe.php");
    exit();
 }
 if(filter_has_var(INPUT_POST, 'process'))  {
@@ -89,7 +89,7 @@ if(filter_has_var(INPUT_POST, 'process'))  {
             $stmt->close();
          }
          $postID = mysqli_insert_id($conn);
-         header ("Location: recipe.php?recipeID=$recipeID");
+         header ("Location: newRecipe.php?recipeID=$recipeID");
          exit();
       }
       if(filter_has_var(INPUT_POST, 'update'))  {
@@ -99,7 +99,7 @@ if(filter_has_var(INPUT_POST, 'process'))  {
             $stmt->execute();
             $stmt->close();
          }
-         header ("Location: recipe.php?recipeID=$recipeID");
+         header ("Location: newRecipe.php?recipeID=$recipeID");
          exit();
       }
    } 
@@ -109,8 +109,8 @@ if ($edit) {
    $pageContent .= <<<HERE
    <section class="container-fluid">
       $msg
-      <p>Fill Out This Form</p>
-      <form action="recipe.php" method="post">
+      <p>Add your own recipes here</p>
+      <form action="newRecipe.php" method="post">
          <div class="form-group">
             <label for="recipeTitle">recipe Title</label>
             <input type="text" name="recipeTitle" id="recipeTitle" value="$recipeTitle" placeholder="Recipe Title" class ="form-control">$invalid_recipeTitle
@@ -121,7 +121,7 @@ if ($edit) {
          </div>
          $buttons
       </form>
-      <form action="recipe.php" method="post">
+      <form action="newRecipe.php" method="post">
          <div class="form-group">
             <input type="submit" name="cancel" value="Show Recipe List" class="btn btn-warning">
          </div>
@@ -129,22 +129,22 @@ if ($edit) {
    </section>\n
 HERE;
 } elseif ($recipeID) {
-	$pageContent = <<<HERE
+	$pageContent .= <<<HERE
    <h2>$recipeTitle</h2>
    <p>$title</p>
    <p>$content</p>
-   <form action="recipe.php" method="post">
+   <form action="newRecipe.php" method="post">
       <div class="form-group">
          <input type="hidden" name="postID" value="$postID">
          <input type="submit" name="edit" value="Edit Post" class="btn btn-info">
       </div>
    </form>
-   <form action="recipe.php" method="post">
+   <form action="newRecipe.php" method="post">
       <div class="form-group">
          <input type="submit" name="cancel" value="Recipe List" class="btn btn-warning">
       </div>
    </form>
-   <form action="recipe.php" method="post">
+   <form action="newRecipe.php" method="post">
    <div class="form-group">
       <input type="hidden" name="postID" value="$recipeID">
       <input type="submit" name="delete" value="Delete Post" class="btn btn-danger">
@@ -156,7 +156,7 @@ HERE;
 // 	load default list
    $where = 1;
    $stmt = $conn->stmt_init();
-   if ($stmt->prepare("SELECT `recipeID`, 'recipeTitle` FROM `recipe_table` WHERE ?")) {
+   if ($stmt->prepare("SELECT `recipeID`, `recipeTitle` FROM `recipe_table` WHERE ?")) {
       $stmt->bind_param("i", $where);
       $stmt->execute();
       $stmt->bind_result($recipeID, $recipeTitle);
@@ -169,7 +169,7 @@ HERE;
 HERE;
          while($stmt->fetch()){ // loop through the result set to build our list
          $selectPost .= <<<HERE
-            <li><a href="recipe.php?recipeID=$recipeID">$recipeTitle</a></li>\n
+            <li><a href="newRecipe.php?recipeID=$recipeID">$recipeTitle</a></li>\n
 HERE;
          }
          $selectPost .= <<<HERE
@@ -184,10 +184,10 @@ HERE;
       $selectPost = "<p>Recipe system is down now. Please try again later.</p>";
    }
 
-   $pageContent = <<<HERE
+   $pageContent .= <<<HERE
    <h2>My Recipes</h2>
    $selectPost
-   <form action="recipe.php" method="post">
+   <form action="newRecipe.php" method="post">
    <div class="form-group">
       <input type="submit" name="edit" value="Create New Post" class="btn btn-success">
    </div>
@@ -200,6 +200,5 @@ HERE;
 // $pageContent .= "<pre>";
 // $pageContent .= print_r($_POST, true);
 // $pageContent .= "</pre>";
-include 'template.php';
-?>
+include 'recipeTemplate.html';
 ?>

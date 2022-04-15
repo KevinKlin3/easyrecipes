@@ -14,5 +14,5 @@ $pageContent .= <<<HERE
 <p>recipe: all can see but only the creator can edit</p>
 <p>comments: All can see, but only users can comment</p>
 HERE;
-include 'admin/template.php';
+include 'admin/template.html';
 ?>
