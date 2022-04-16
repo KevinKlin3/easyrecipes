@@ -1,6 +1,6 @@
 <?php
 // configuration
-include '..\admin\config.php';
+include 'admin\config.php';
 
 // sticky's
 $pageTitle = "Gallery";
@@ -11,20 +11,9 @@ $recipeImage = Null;
 $sql = "SELECT recipeTitle, recipeImage FROM recipe_table";
 $resultset = mysqli_query($conn, $sql) or die("database error:". mysqli_error($conn));			
 while( $record = mysqli_fetch_assoc($resultset) ) {
-}		
-$pageContent .=<<<HERE
-<div class="card bg-dark text-white">
-<img src="$recipeImage" class= "card-img">
-<div class="card-img-overlay">
-  <h5 class="card-title">$recipeTitle</h5>
-</div>
-</div>
-HERE;
+}
 
-include 'admin/template.html';
-?>
-
-// get information from db load default list
+//get information from db load default list
    $where = 1;
    $stmt = $conn->stmt_init();
    if ($stmt->prepare("SELECT `recipeID`, `recipeTitle` FROM `recipe_table` WHERE ?")) {
@@ -54,3 +43,15 @@ HERE;
    } else {
       $selectPost = "<p>Recipe system is down now. Please try again later.</p>";
    }
+
+$pageContent .=<<<HERE
+<div class="card bg-dark text-white">
+<img src="$recipeImage" class= "card-img">
+<div class="card-img-overlay">
+  <h5 class="card-title">$recipeTitle</h5>
+</div>
+</div>
+HERE;
+
+include 'admin/template.html';
+?>
