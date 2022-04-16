@@ -23,3 +23,34 @@ HERE;
 
 include 'admin/template.html';
 ?>
+
+// get information from db load default list
+   $where = 1;
+   $stmt = $conn->stmt_init();
+   if ($stmt->prepare("SELECT `recipeID`, `recipeTitle` FROM `recipe_table` WHERE ?")) {
+      $stmt->bind_param("i", $where);
+      $stmt->execute();
+      $stmt->bind_result($recipeID, $recipeTitle);
+      $stmt->store_result();
+      $classList_row_cnt = $stmt->num_rows();
+
+      if($classList_row_cnt > 0){ // make sure we have at least 1 record
+         $selectPost = <<<HERE
+         <ul>\n
+HERE;
+         while($stmt->fetch()){ // loop through the result set to build our list
+         $selectPost .= <<<HERE
+            <li><a href="newRecipe.php?recipeID=$recipeID">$recipeTitle</a></li>\n
+HERE;
+         }
+         $selectPost .= <<<HERE
+         </ul>\n
+HERE;
+      } else {
+         $selectPost = "<p>There are no recipes to see.</p>";
+      }
+      $stmt->free_result();
+      $stmt->close();
+   } else {
+      $selectPost = "<p>Recipe system is down now. Please try again later.</p>";
+   }

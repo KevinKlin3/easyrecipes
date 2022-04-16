@@ -1,5 +1,5 @@
 <?php
-include '..\admin\config.php';
+include 'admin\config.php';
 $pageTitle = "Home";
 $pageContent = NULL;
 
