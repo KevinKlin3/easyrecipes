@@ -128,7 +128,7 @@ if (!empty($_FILES['recipeImages']['name'])) {
                   $invalidPhoto .= 'Something Unexpected happened.</p>';
                   break;
             }//EO Switch
-         } else {
+      } else {
             $imageName = $_FILES["recipeImages"]["name"];
             $file = "recipeImages/$imageName";
             $fileInfo = "<p>Upload: $imageName<br>";
@@ -151,15 +151,13 @@ if (!empty($_FILES['recipeImages']['name'])) {
                      $row_count = mysqli_affected_rows($conn);
                      if($row_count == 1)  {
                         $msg = "<p class='text-success'>Record Updated</p>";
-                     }else {
-                        $msg = '<p class="error">Image Update Failed</p>';
-                     }//EO row msg else
+                     }else {$msg = '<p class="error">Image Update Failed</p>';}//EO row msg else
                   }//EO row else
                }/*EO move IF*/ else {
                $invalid_recipeImage .='<p><span class="error">Your File could not be uploaded. ';
             }//EO invalid photo else
-         }//EO File exist else
-      }//EO img if
+            }//EO File exist else
+         }//EO img if
    }/*EO file ext if*/ else {
          $invalid_recipeImage = '<span class= "error">Invalid File. This is not an image.</span>';
          $valid = FALSE;

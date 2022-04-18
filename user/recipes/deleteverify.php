@@ -4,11 +4,11 @@ if(!$conn)  {
    echo "Failed to connect to MySQL: ".mysqli_connect_error();
 }
 // if(isset($_SESSION['userID'])) {
-//    $userID = $_SESSION['userID'];
+//     $userID = $_SESSION['userID'];
 // } else {
-//    header("Location: newRecipe.php");
+//     header("Location: newRecipe.php");
 //    exit();
-// }
+//  }
 
 $pageTitle = "Delete Verify";
 $recipeID = $recipeTitle = $recipeImage = $recipeContent = $username = $username = $type = NULL;
@@ -16,25 +16,21 @@ $pageContent = $msg = NULL;
 
 if (isset($_POST['delete-recipe']))   {
    $query = "DELETE FROM `recipe_table` WHERE `recipeID` = $recipeID LIMIT 1;";
-   $result = mysqli_query($conn, $query);
-   if (!$result)  {
-      $msg = "<p>Delete Failed</p>";
-   }else {
+   $result = mysqli_query($conn,$query);
+   if (!$result) {
+	   die(mysqli_error($conn));$msg = "<p>Delete Failed</p>";}else {
       $row_count = mysqli_affected_rows($conn);
       if($row_count == 1)  {
          unlink("recipeImages/".$_POST['recipeImage']);
          header("Location: deleteverify.php?action=delete");
          exit();
-      }else {
-         $msg = "<p>Insert Failed</p>";
-      }
+      }else {$msg = "<p>Insert Failed</p>";}
    }
 
-
    $query = "SELECT * FROM `recipe_table` WHERE `recipeID` = $recipeID";
-   $result = mysqli_query($conn, $query);
-   if (!$result)  {
-      die(mysqli_error($conn));
+   $result = mysqli_query($conn,$query);
+   if (!$result) {
+	   die(mysqli_error($conn));
    }
    if ($row = mysqli_fetch_assoc($result))   {
       $recipeTitle = $row['recipeTitle'];
@@ -43,9 +39,7 @@ if (isset($_POST['delete-recipe']))   {
       $recipeContent = $row['recipeContent'];
       $date = $row['date'];
       $type = $row['type'];
-   }else {
-      $msg = "Sorry, we couldn't find your recipe.";
-   }
+   }else {$msg = "Sorry, we couldn't find your recipe.";}
 }
 $pageContent .= <<<HERE
 <section class="container-fluid">

@@ -33,7 +33,7 @@ HERE;
          while($stmt->fetch()){ // loop through the result set to build our list
          $selectPost .= <<<HERE
          <img src="$recipeImage" class= "card-img" id="gallery-img">
-         <a href="recipe.php?recipeID=$recipeID" class="card-title">$recipeTitle</a>
+         <a href="user/recipes/recipe.php?recipeID=$recipeID" class="card-title">$recipeTitle</a>
 HERE;
          }
          $selectPost .= <<<HERE
