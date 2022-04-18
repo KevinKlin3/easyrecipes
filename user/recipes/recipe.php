@@ -10,15 +10,15 @@ $recipeTitle = $recipeContent = $recipeImage = $type = $date = NULL;
 $invalid_recipeTitle = $invalid_recipeContent = $invalid_type = Null;
 $invalid_recipeImage = $fileInfo = $imageName = NULL;
 $pageContent = $msg = NULL;
-$logged_in = NULL;
+$logged_in = FALSE;
 
 
-if(isset($_SESSION['userID'])) {
-   $userID = $_SESSION['userID'];
-   $logged_in = TRUE;
-}else {
-   $logged_in= FALSE; 
-}
+// if(isset($_SESSION['userID'])) {
+//    $userID = $_SESSION['userID'];
+//    $logged_in = TRUE;
+// }else {
+//    $logged_in= FALSE; 
+// }
 
 
 if(filter_has_var(INPUT_POST, 'edit'))  {
@@ -95,11 +95,6 @@ if(filter_has_var(INPUT_POST, 'process'))  {
       }
 
 //image
-$content = mysqli_real_escape_string($conn, trim($_POST['recipeImage'])); 
-if (empty($recipeImage))  {
-      $invalid_recipeImage = '<span class="error">Required</span>';
-      $valid = FALSE;
-   }
 if (!empty($_FILES['recipeImages']['name'])) {
    unlink("recipeImages/" . $_POST['imageName']);
    $filetype = pathinfo($_FILES['recipeImages']['name'], PATHINFO_EXTENSION);
@@ -162,7 +157,7 @@ if (!empty($_FILES['recipeImages']['name'])) {
          $invalid_recipeImage = '<span class= "error">Invalid File. This is not an image.</span>';
          $valid = FALSE;
       }//EO invalid file else
-}//EO process
+
    if($valid)  {
       if(filter_has_var(INPUT_POST, 'insert'))  {
          $stmt = $conn->stmt_init();
@@ -172,7 +167,7 @@ if (!empty($_FILES['recipeImages']['name'])) {
             $stmt->close();
          }
          $postID = mysqli_insert_id($conn);
-         header ("Location: recipe.php?recipeID=$recipeID");
+         header ("Location: user/recipes/recipe.php?recipeID=$recipeID");
          exit();
       }
       if(filter_has_var(INPUT_POST, 'update'))  {
@@ -187,7 +182,7 @@ if (!empty($_FILES['recipeImages']['name'])) {
       }
    } 
 }
-
+}//EO process
 if ($edit) {
    $pageContent .= <<<HERE
    <section class="container-fluid m-2">
@@ -211,7 +206,7 @@ if ($edit) {
          <label for="profilePic">File to Uploads</label> $invalid_recipeImage
          <input type="file" name="recipeImage" id="recipeImage" class="mb-3 form">
       </div>
-         $buttons
+   $buttons
       </form>
       <form action="recipe.php" method="post">
          <div class="form-group">
@@ -287,6 +282,6 @@ HERE;
 HERE;
 }
 
-include 'recipeTemplate.html';
+include '../../admin/recipeTemplate.html';
 
 ?>

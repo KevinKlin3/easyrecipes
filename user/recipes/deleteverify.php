@@ -63,5 +63,5 @@ $msg
 </section>\n
 HERE;
 
-include 'recipeTemplate.html';
+include '../../admin/recipeTemplate.html';
 ?>
