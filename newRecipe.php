@@ -6,7 +6,7 @@ include '..\..\admin\config.php';
 
 $pageTitle = "My recipes";
 $recipeTitle = $recipeContent = $recipeImage = $type = $date = NULL;
-$invalid_recipeTitle = $invalid_recipeContent = $invalid_type = $invalid_date = Null;
+$invalid_recipeTitle = $invalid_recipeContent = $invalid_type = Null;
 $invalid_recipeImage = $fileInfo = $imageName = NULL;
 $pageContent = $msg = NULL;
 
@@ -47,14 +47,14 @@ $buttons = <<<HERE
       <div class="form-group">
          <input type="hidden" name"recipeID" value="$recipeID">
          <input type="hidden" name="process">
-         <input type="submit" name="update" value="Update Post" class="btn btn-info">
+         <input type="submit" name="update" value="Update Recipe" class="mb-2 btn btn-info">
       </div>
 HERE;
 } else {
    $buttons = <<<HERE
       <div class="form-group">
          <input type="hidden" name="process">
-         <input type="submit" name="insert" value="Save Recipe" class="btn btn-success">
+         <input type="submit" name="insert" value="Save Recipe" class="mb-2 btn btn-success">
       </div>
 HERE;
 }
@@ -62,12 +62,12 @@ HERE;
 // check delete Recipe posted
 if(filter_has_var(INPUT_POST, 'delete'))  {
    $stmt = $conn->stmt_init();
-   if ($stmt->prepare("DELETE FROM `recipe_table` WHERE = ?")){ 
+   if ($stmt->prepare("DELETE FROM `recipe_table` WHERE = ? ")){ 
       $stmt->bind_param("i", $recipeID);
       $stmt->execute();
       $stmt->close();
    }
-   header ("..\..\index.php");//route back to home after deletion
+   header ("newRecipe.php");//route back to home after deletion
    exit();
 }
 //Recipe Title
@@ -79,23 +79,18 @@ if(filter_has_var(INPUT_POST, 'process'))  {
          $valid = FALSE;
       }
 //content
-   $content = mysqli_real_escape_string($conn, trim($_POST['RecipeContent'])); 
+   $content = mysqli_real_escape_string($conn, trim($_POST['recipeContent'])); 
    if (empty($recipeContent))  {
          $invalid_recipeContent = '<span class="error">Required</span>';
          $valid = FALSE;
       }
 //type
-      $content = mysqli_real_escape_string($conn, trim($_POST['Type'])); 
+      $content = mysqli_real_escape_string($conn, trim($_POST['type'])); 
    if (empty($type))  {
          $invalid_type = '<span class="error">Required</span>';
          $valid = FALSE;
       }
-//date
-$content = mysqli_real_escape_string($conn, trim($_POST['date'])); 
-if (empty($date))  {
-      $invalid_date = '<span class="error">Required</span>';
-      $valid = FALSE;
-   }
+
 //image
 if (!empty($_FILES['recipeImage']['name'])) {
    unlink("recipeImages/" . $_POST['imageName']);
@@ -171,7 +166,7 @@ if (!empty($_FILES['recipeImage']['name'])) {
             $stmt->close();
          }
          $postID = mysqli_insert_id($conn);
-         header ("Location: ..\..\newRecipe.php?recipeID=$recipeID");
+         header ("Location: recipe.php?recipeID=$recipeID");
          exit();
       }
       if(filter_has_var(INPUT_POST, 'update'))  {
@@ -181,7 +176,7 @@ if (!empty($_FILES['recipeImage']['name'])) {
             $stmt->execute();
             $stmt->close();
          }
-         header ("Location: ..\..\newRecipe.php?recipeID=$recipeID");
+         header ("Location: recipe.php?recipeID=$recipeID");
          exit();
       }
    } 
@@ -191,7 +186,7 @@ if ($edit) {
    $pageContent .= <<<HERE
    <section class="container-fluid">
       $msg
-      <p>Add your own recipes here</p>
+      <h2>Edit your recipe</h2>
       <form action="newRecipe.php" method="post">
          <div class="form-group">
             <label for="recipeTitle">Recipe Title</label>
@@ -202,10 +197,6 @@ if ($edit) {
          <input type="text" name="type" id="type" value="$type" placeholder="Breakfast, Lunch, Dinner, Dessert" class ="form-control">$invalid_type
       </div>
          <div class="form-group">
-            <label for="recipeTitle">Date</label>
-            <input type="text" name="date" id="date" value="$date" placeholder="date" class ="form-control">$invalid_date
-         </div>
-         <div class="form-group">
             <label for="recipeContent">Recipe Content</label>
             <textarea name="recipeContent" id="recipeContent" class="form-control">$recipeContent</textarea>$invalid_recipeContent
          </div>
@@ -213,18 +204,13 @@ if ($edit) {
       <div class="form-group">
          <input type="hidden" name="MAX_FILE_SIZE" value="300000">
          <label for="profilePic">File to Uploads</label> $invalid_recipeImage
-         <input type="file" name="recipeImage" id="recipeImage" class="form">
-      </div>
-      <div class="form-group">
-         <input type="hidden" name="imageName" value="$recipeImage" class="btn btn-info">
-      <!--add if else statement to seperate authorized user to edit-->
-         <input type="submit" name="update" value="Update Profile" class="btn btn-info">
+         <input type="file" name="recipeImage" id="recipeImage" class="mb-3 form">
       </div>
          $buttons
       </form>
       <form action="newRecipe.php" method="post">
          <div class="form-group">
-            <input type="submit" name="cancel" value="Show Recipe List" class="btn btn-warning">
+            <input type="submit" name="cancel" value="back" class="mb-2 btn btn-danger">
          </div>
       </form>
    </section>\n
@@ -237,18 +223,18 @@ HERE;
    <form action="newRecipe.php" method="post">
       <div class="form-group">
          <input type="hidden" name="recipeID" value="$recipeID">
-         <input type="submit" name="edit" value="Edit Post" class="btn btn-info">
+         <input type="submit" name="edit" value="Edit Post" class="mb-2 btn btn-info">
       </div>
    </form>
    <form action="newRecipe.php" method="post">
       <div class="form-group">
-         <input type="submit" name="cancel" value="Recipe List" class="btn btn-warning">
+         <input type="submit" name="cancel" value="Recipe List" class="mb-2 btn btn-warning">
       </div>
    </form>
    <form action="newRecipe.php" method="post">
    <div class="form-group">
       <input type="hidden" name="postID" value="$recipeID">
-      <input type="submit" name="delete" value="Delete Post" class="btn btn-danger">
+      <input type="submit" name="delete" value="Delete Post" class="mb-2 btn btn-danger">
    </div>
    </form>
 HERE;
@@ -290,7 +276,7 @@ HERE;
    $selectPost
    <form action="newRecipe.php" method="post">
    <div class="form-group">
-      <input type="submit" name="edit" value="Create New Recipe" class="btn btn-success">
+      <input type="submit" name="edit" value="Create New Recipe" class="mb-2 btn btn-success">
    </div>
    </form>
 HERE;
