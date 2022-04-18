@@ -1,4 +1,5 @@
 <?php
+
 include '..\..\admin\config.php';
  if(!$conn)  {
     echo "Failed to connect to MySQL: ". mysqli_connect_error();
@@ -283,10 +284,6 @@ HERE;
 HERE;
 }
 
-// assemble html
-//superglobals
-// $pageContent .= "<pre>";
-// $pageContent .= print_r($_POST, true);
-// $pageContent .= "</pre>";
 include 'recipeTemplate.html';
+
 ?>

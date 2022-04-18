@@ -1,8 +1,8 @@
 <?php
 session_start();
 /* Contents of config.php */
-$conn = mysqli_connect("localhost","KevinKline","WGXa5yg5","KevinKline");
-//$conn = mysqli_connect("localhost","root","","easy_recipe");
+//$conn = mysqli_connect("localhost","KevinKline","WGXa5yg5","KevinKline");
+$conn = mysqli_connect("localhost","root","","easy_recipe");
 // where $conn is the name you assign to the connection,
 // user is the authorized user name (your avatar name),
 // password is the password for the user (your server password), and

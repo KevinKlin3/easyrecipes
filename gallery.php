@@ -52,6 +52,7 @@ $pageContent .= $selectPost;
 
 include 'admin/template.html';
 ?>
+
 <!-- <main class="container-fluid>
 <div class="card bg-dark text-white">
    <img src="$recipeImage" class= "card-img">
@@ -60,3 +61,4 @@ include 'admin/template.html';
    </div>
 </div>
 </main> -->
+
