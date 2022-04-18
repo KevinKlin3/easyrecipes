@@ -43,24 +43,26 @@ if (isset($_POST['delete-recipe']))   {
 }
 $pageContent .= <<<HERE
 <section class="container-fluid">
-$msg
-<figure><img src="recipeImages/$recipeImage" alt= "recipe image" class="img-thumbnail" />
-   <figcaption>$recipeTitle</figcaption>
-</figure>
-<h1>Delete this recipe?</h1>
-<p class='bg-warning'>Are you sure you want to delete this recipe? This cannot be undone.</p>
-<p>$username</p>
-<form action ="Recipe.php" method="post">
-   <div class="form-group">
-      <input type="submit" name="cancel" value="cancel" class="btn btn-success">
+   <div class="col-md m-3">
+   $msg
+   <figure><img src="recipeImages/$recipeImage" alt= "recipe image" class="img-thumbnail" />
+      <figcaption>$recipeTitle</figcaption>
+   </figure>
+   <h1>Delete this recipe?</h1>
+      <p class='bg-warning'>Are you sure you want to delete this recipe? This cannot be undone.</p>
+      <p>$username</p>
+      <form action ="Recipe.php" method="post">
+         <div class="form-group">
+            <input type="submit" name="cancel" value="cancel" class="btn btn-success">
+         </div>
+      </form>
+      <form action="deleteverify.php" method="post">
+         <div class="form-group">
+            <input type="submit" name="delete-recipe" value="Verify Delete" class="btn btn-danger">
+         </div>
+      </form>
    </div>
-</form>
-<form action="deleteverify.php" method="post">
-<div class="form-group">
-   <input type="submit" name="delete-recipe" value="Verify Delete" class="btn btn-danger">
-</div>
-</form>
-</section>\n
+</section>
 HERE;
 
 include '../../admin/recipeTemplate.html';

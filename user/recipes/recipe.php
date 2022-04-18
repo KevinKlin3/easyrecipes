@@ -217,26 +217,32 @@ if ($edit) {
 HERE;
 } elseif ($recipeID) {
 	$pageContent .= <<<HERE
-   <h2>$recipeTitle</h2>
-   <p>$recipeImage</p>
-   <p>$recipeContent</p>
-   <form action="recipe.php" method="post">
-      <div class="form-group">
-         <input type="hidden" name="recipeID" value="$recipeID">
-         <input type="submit" name="edit" value="Edit Post" class="mb-2 btn btn-info">
+   <section class="container-fluid">
+   <div class="bg-light m-3">
+      <h2>$recipeTitle</h2>
+      <p>$recipeImage</p>
+      <p>$recipeContent</p>
+      <div class="btn-group">
+      <form action="recipe.php" method="post">
+         <div class="form-group">
+            <input type="hidden" name="recipeID" value="$recipeID">
+            <input type="submit" name="edit" value="Edit Post" class="m-2 btn btn-info">
+         </div>
+      </form>
+      <form action="Recipe.php" method="post">
+         <div class="form-group">
+            <input type="submit" name="cancel" value="Recipe List" class="m-2 btn btn-warning">
+         </div>
+      </form>
+      <form action="deleteverify.php" method="post">
+         <div class="form-group">
+            <input type="hidden" name="recipeID" value="$recipeID">
+            <input type="submit" name="delete" value="Delete" class="m-2 btn btn-danger">
+         </div>
+      </form>
       </div>
-   </form>
-   <form action="Recipe.php" method="post">
-      <div class="form-group">
-         <input type="submit" name="cancel" value="Recipe List" class="mb-2 btn btn-warning">
-      </div>
-   </form>
-   <form action="deleteverify.php" method="post">
-   <div class="form-group">
-      <input type="hidden" name="recipeID" value="$recipeID">
-      <input type="submit" name="delete" value="Delete" class="mb-2 btn btn-danger">
    </div>
-   </form>
+   </section>
 HERE;
 } else {
 // 	select data from db
@@ -276,7 +282,7 @@ HERE;
    $selectPost
    <form action="recipe.php" method="post">
    <div class="form-group">
-      <input type="submit" name="edit" value="Create New Recipe" class="mb-2 btn btn-success">
+      <input type="submit" name="edit" value="Create New Recipe" class="m-2 btn btn-success">
    </div>
    </form>
 HERE;
