@@ -29,7 +29,7 @@ if (isset($_POST['delete-recipe']))   {
          $msg = "<p>Insert Failed</p>";
       }
    }
-}
+
 
    $query = "SELECT * FROM `recipe_table` WHERE `recipeID` = $recipeID";
    $result = mysqli_query($conn, $query);
@@ -46,6 +46,7 @@ if (isset($_POST['delete-recipe']))   {
    }else {
       $msg = "Sorry, we couldn't find your recipe.";
    }
+}
 $pageContent .= <<<HERE
 <section class="container-fluid">
 $msg
@@ -55,9 +56,9 @@ $msg
 <h1>Delete this recipe?</h1>
 <p class='bg-warning'>Are you sure you want to delete this recipe? This cannot be undone.</p>
 <p>$username</p>
-<form action ="newRecipe.php" method="post">
+<form action ="Recipe.php" method="post">
    <div class="form-group">
-      <input type="submit" name="profile" value="cancel" class="btn btn-success">
+      <input type="submit" name="cancel" value="cancel" class="btn btn-success">
    </div>
 </form>
 <form action="deleteverify.php" method="post">
@@ -68,5 +69,5 @@ $msg
 </section>\n
 HERE;
 
-include 'recipeTemplate.php';
+include 'recipeTemplate.html';
 ?>

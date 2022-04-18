@@ -95,10 +95,15 @@ if(filter_has_var(INPUT_POST, 'process'))  {
       }
 
 //image
-if (!empty($_FILES['recipeImage']['name'])) {
+$content = mysqli_real_escape_string($conn, trim($_POST['recipeImage'])); 
+if (empty($recipeImage))  {
+      $invalid_recipeImage = '<span class="error">Required</span>';
+      $valid = FALSE;
+   }
+if (!empty($_FILES['recipeImages']['name'])) {
    unlink("recipeImages/" . $_POST['imageName']);
    $filetype = pathinfo($_FILES['recipeImages']['name'], PATHINFO_EXTENSION);
-   if((($filetype == "gif") or ($filetype == "jpg") or ($filetype == "png")) and $_FILES['profilePic']['size'] < 300000) {
+   if((($filetype == "gif") or ($filetype == "jpg") or ($filetype == "png")) and $_FILES['recipeImages']['size'] < 300000) {
       if ($_FILES["recipeImages"]["error"] > 0)  {
          $valid = FALSE;
          $fileError = $_FILES['recipeImages']['error'];
@@ -138,7 +143,7 @@ if (!empty($_FILES['recipeImage']['name'])) {
                if (move_uploaded_file($_FILES["recipeImages"]['tmp_name'], "$file")) {
                   $fileInfo .= "<p class='text-success'>Your file has been uploaded. Stored as: $file</p>";
 
-                  $query = "UPDATE `recipe_table` SET `recipeImage` = '$imageName' WHERE `userID` = $userID;";
+                  $query = "UPDATE `recipe_table` SET `recipeImage` = '$imageName' WHERE `recipeID` = $recipeID;";
                   $result = mysqli_query($conn, $query);
                   if (!$result)  {
                      die(mysqli_error($conn));
@@ -164,7 +169,7 @@ if (!empty($_FILES['recipeImage']['name'])) {
       if(filter_has_var(INPUT_POST, 'insert'))  {
          $stmt = $conn->stmt_init();
          if ($stmt->prepare("INSERT INTO `recipe_table`(`recipeTitle`, `recipeContent`, `username`, `recipeImage`, `date`, `type` ) VALUES (?, ?, ?, ?, ?, ?)")) {
-            $stmt->bind_param("ssi", $recipeTitle, $recipeContent, $username, $recipeImage, $date, $type);
+            $stmt->bind_param("ssssis", $recipeTitle, $recipeContent, $username, $recipeImage, $date, $type);
             $stmt->execute();
             $stmt->close();
          }
@@ -175,7 +180,7 @@ if (!empty($_FILES['recipeImage']['name'])) {
       if(filter_has_var(INPUT_POST, 'update'))  {
          $stmt = $conn->stmt_init();
          if ($stmt->prepare("UPDATE `recipe_table` SET `recipeTitle`= ?, `recipeImage`= ?, `recipeContent`= ?, `type`= ? WHERE `recipeID` = ?")) {
-            $stmt->bind_param("ssi", $recipeTitle, $recipeImage, $recipeContent, $recipeID, $type);
+            $stmt->bind_param("ssss", $recipeTitle, $recipeImage, $recipeContent, $type);
             $stmt->execute();
             $stmt->close();
          }

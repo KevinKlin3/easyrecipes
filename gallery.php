@@ -8,7 +8,7 @@ $pageContent = NULL;
 $recipeTitle  = $recipeImage = $recipeID = Null;
 
 // QUERY
-$sql = "SELECT recipeTitle, recipeImage FROM recipe_table";
+$sql = "SELECT `recipeTitle`, `recipeImage` FROM recipe_table";
 $resultset = mysqli_query($conn, $sql) or die("database error:". mysqli_error($conn));			
 while( $record = mysqli_fetch_assoc($resultset) ) {
 }
@@ -26,17 +26,20 @@ while( $record = mysqli_fetch_assoc($resultset) ) {
       if($classList_row_cnt > 0){ // make sure we have at least 1 record
          $selectPost = <<<HERE
          <div class="container-fluid">
-         <div class="card bg-dark text-white m-2">
+            <div class="row">
+               <div class="col-sml">
+                  <div class="card bg-light m-2">
 HERE;
          while($stmt->fetch()){ // loop through the result set to build our list
          $selectPost .= <<<HERE
-         <img src="$recipeImage" class= "card-img">
+         <img src="$recipeImage" class= "card-img" id="gallery-img">
          <a href="recipe.php?recipeID=$recipeID" class="card-title">$recipeTitle</a>
 HERE;
          }
          $selectPost .= <<<HERE
-         </div>
-         </div>
+                  </div>
+               </div>
+            </div>
          </div>
 HERE;
       } else {
