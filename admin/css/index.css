@@ -1,21 +1,88 @@
-.fakeimg {
-   width: 100%;
-   height: auto;
-   background: #FDAC53 ;
+*  {
+  box-sizing: border-box;
 }
-footer {
-   bottom: 0;
-   width: 100%;
-   background-color: #FDAC53;
-   color: white;
-   text-align: center;
+header  {
+  max-width: 100%;
+  max-height: auto;
+  align-content: center;
+  background: #FDAC53;
+}
+
+nav {
+  background-color: #FDAC53;
+  color: white;
+}
+
+#logo{
+  display: flex;
+  max-width: 50px;
+  max-height: 70px;
+  float: left;
+}
+
+li a:hover{
+  background-color: #00758f;
+  color: white;
+}
+
+/* Create three unequal columns that floats next to each other */
+.column {
+   float: left;
+   padding: 10px;
+   margin: 20px;
+ }
+ /* Left and right column */
+ .column.side {
+   width: 25%;
+ }
+ /* Middle column */
+ .column.middle {
+   width: 50%;
  }
 
+ /* Clear floats after the columns */
+ .row:after {
+   content: "";
+   display: table;
+   clear: both;
+ }
+ .fakeimg {
+   border-radius: 25px;
+   width: 50%;
+   height: auto;
+   background: #FDAC53;
+}
+
+/*sign in button @footer*/
+.button {
+   margin: 10px;
+   background-color: #00758f; /* mosaic blue */
+   border-radius: 4px;
+   color: white;
+   padding: 10px 20px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+}
+footer {
+   padding: 20px;
+   text-align: center;
+   background: #FDAC53;
+   margin-top: 20px;
+   width: 100%;
+   color: white;
+}
+/* favicons*/
 i {
 display: inline-block;
 width: 72px;
 height: 72px;
 background-position: -72px 0;
 }
-
-
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+   .column.side, .column.middle {
+     width: 100%;
+   }
+}

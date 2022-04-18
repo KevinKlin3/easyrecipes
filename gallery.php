@@ -1,30 +1,57 @@
 <?php
+// configuration
+include 'admin\config.php';
+
+// sticky's
 $pageTitle = "Gallery";
 $pageContent = NULL;
+$recipeTitle  = Null;
+$recipeImage = Null;
+// QUERY
+$sql = "SELECT recipeTitle, recipeImage FROM recipe_table";
+$resultset = mysqli_query($conn, $sql) or die("database error:". mysqli_error($conn));			
+while( $record = mysqli_fetch_assoc($resultset) ) {
+}
 
-$pageContent .= <<<HERE
-<div class="container"
-<div class="row">
-  <div class="col-sm">
-      <div class="card text-dark border-primary" style="width: 18rem;">
-         <img src="admin/images/test_img/fries.jpg" class="card-img-top" alt="fries in a paper sleeve">
-         <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-               <a href="#" class="btn btn-primary">Go somewhere</a>
-         </div>
-      </div>
-   </div>
-   <div class="col-sm">
-      <div class="card text-dark border-primary" style="width: 18rem;">
-         <img src="admin/images/test_img/eggs_smile.jpg" class="card-img-top" alt="eggs sunny side up smiling">
-         <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-               <a href="#" class="btn btn-primary">Go somewhere</a>
-         </div>
-      </div>
-   </div>
+//get information from db load default list
+   $where = 1;
+   $stmt = $conn->stmt_init();
+   if ($stmt->prepare("SELECT `recipeID`, `recipeTitle` FROM `recipe_table` WHERE ?")) {
+      $stmt->bind_param("i", $where);
+      $stmt->execute();
+      $stmt->bind_result($recipeID, $recipeTitle);
+      $stmt->store_result();
+      $classList_row_cnt = $stmt->num_rows();
+
+      if($classList_row_cnt > 0){ // make sure we have at least 1 record
+         $selectPost = <<<HERE
+         <ul>\n
 HERE;
-include 'admin/template.php';
+         while($stmt->fetch()){ // loop through the result set to build our list
+         $selectPost .= <<<HERE
+            <li><a href="newRecipe.php?recipeID=$recipeID">$recipeTitle</a></li>\n
+HERE;
+         }
+         $selectPost .= <<<HERE
+         </ul>\n
+HERE;
+      } else {
+         $selectPost = "<p>There are no recipes to see.</p>";
+      }
+      $stmt->free_result();
+      $stmt->close();
+   } else {
+      $selectPost = "<p>Recipe system is down now. Please try again later.</p>";
+   }
+
+$pageContent .=<<<HERE
+<div class="card bg-dark text-white">
+<img src="$recipeImage" class= "card-img">
+<div class="card-img-overlay">
+  <h5 class="card-title">$recipeTitle</h5>
+</div>
+</div>
+HERE;
+
+include 'admin/template.html';
 ?>
