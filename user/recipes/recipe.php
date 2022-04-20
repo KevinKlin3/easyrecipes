@@ -288,6 +288,6 @@ HERE;
 HERE;
 }
 
-include '../../admin/recipeTemplate.html';
+include '../../admin/recipeTemplate.php';
 
 ?>

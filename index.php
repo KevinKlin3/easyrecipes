@@ -31,5 +31,5 @@ $pageContent .= <<<HERE
    </div>
 </main>
 HERE;
-include 'admin/template.html';
+include 'admin/template.php';
 ?>

@@ -53,7 +53,7 @@ HERE;
 
 $pageContent .= $selectPost;
 
-include 'admin/template.html';
+include 'admin/template.php';
 ?>
 
 <!-- <main class="container-fluid>

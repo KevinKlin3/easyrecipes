@@ -1,5 +1,5 @@
-*  {
-  box-sizing: border-box;
+body {
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
 header  {
   max-width: 100%;
@@ -7,7 +7,27 @@ header  {
   align-content: center;
   background: #FDAC53;
 }
-
+.hero {
+  background-image: url('images/hero5.svg');
+  max-width: 100vw;
+  height: 33vh;
+  object-fit: contain;
+}
+header h1 {
+  position: relative;
+  top: 40%;
+  height: 200px;
+  width: auto;
+  background-color: #FDAC53;
+  padding-left: 20vw;
+  margin: auto;
+  font-size: 15vh;
+  font-family: cursive;
+}
+#color-teal {
+  color: #00758f;
+  font-size: xx-large;
+}
 nav {
   background-color: #FDAC53;
   color: white;
@@ -24,7 +44,11 @@ li a:hover{
   background-color: #00758f;
   color: white;
 }
-
+.gradient-custom {
+  background:  #00758f;
+  background: -webkit-linear-gradient(to right, rgba(0, 117, 143, 1), rgba(95, 96, 99, 1));
+  background: linear-gradient(to right, rgba(0, 117, 143, 1), rgba(95, 96, 99, 1));
+}
 /* Create three unequal columns that floats next to each other */
 .column {
    float: left;
@@ -66,13 +90,14 @@ li a:hover{
    font-size: 16px;
 }
 footer {
-   padding: 20px;
-   text-align: center;
-   background: #FDAC53;
-   margin-top: 20px;
-   width: 100%;
-   color: white;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #FDAC53;
+  color: white;
+  text-align: center;
 }
+
 /* favicons*/
 i {
 display: inline-block;

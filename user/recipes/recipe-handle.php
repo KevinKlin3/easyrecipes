@@ -15,5 +15,5 @@ $pageContent .= <<<HERE
 </content>
 HERE;
 
-include_once '../../admin/recipeTemplate.html';
+include_once '../../admin/recipeTemplate.php';
 ?>
