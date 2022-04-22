@@ -23,7 +23,7 @@
     </head>
     <body>
       <header class="hero">
-       <h1 class="banner">Easy Recipies</h1>
+       <h1>Easy Recipies</h1>
       </header>
         <!-- Nav Bar -->
         <nav class="navbar navbar-expand-sm navbar-dark sticky-top">

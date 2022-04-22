@@ -4,14 +4,14 @@ $pageTitle = "Home";
 $pageContent = NULL;
 
 $pageContent .= <<<HERE
-<main>
+<main class="container">
    <div class="row">
-      <div class="column side">
+      <div class="col-sm-3 float-start">
          <h2>Why Sharing Recipes?</h2>
                <img src="admin/images/food_bowl.jpg" class="fakeimg" alt="deconstructed salad bowl">
                <p>Sharing a recipe can be like sharing an intimate memory, one that transcends the table. ... So while recipe sharing speaks to the great human warmth that can be realized at a dinner table, recipe guarding speaks to a fundamental lack of trust. Fortunately, trust is something that can be forged over a shared plate of food.</p>
       </div>
-      <div class="column middle">
+      <div class="col">
          <h2>Why Easy Recipes?</h2>
             <h4> Did you know?</h4>
                <div>

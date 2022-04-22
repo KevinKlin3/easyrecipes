@@ -34,10 +34,7 @@ header h1 {
   color: #00758f;
   text-shadow: 2px 2px 5px white;
 }
-#color-teal {
-  color: #00758f;
-  font-size: xx-large;
-}
+
 nav {
   background-color: #FDAC53;
   color: white;
@@ -59,27 +56,7 @@ li a:hover{
   background: -webkit-linear-gradient(to right, rgba(0, 117, 143, 1), rgba(95, 96, 99, 1));
   background: linear-gradient(to right, rgba(0, 117, 143, 1), rgba(95, 96, 99, 1));
 }
-/* Create three unequal columns that floats next to each other */
-.column {
-   float: left;
-   padding: 10px;
-   margin: 20px;
- }
- /* Left and right column */
- .column.side {
-   width: 25%;
- }
- /* Middle column */
- .column.middle {
-   width: 50%;
- }
 
- /* Clear floats after the columns */
- .row:after {
-   content: "";
-   display: table;
-   clear: both;
- }
  .fakeimg {
    border-radius: 25px;
    width: 50%;
@@ -121,9 +98,19 @@ background-position: -72px 0;
 #gallery-img {
   max-width: 400px;
 }
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+
+/* large screens */
+@media screen and (max-width: 1080px) {
+  main  {margin:5%;}
+  header h1 {
+    top:0; 
+    font-size: 10vh; 
+    flex-wrap: wrap;
+    height:fit-content;}
+}
+
+/* Medium screens and under */
 @media screen and (max-width: 600px) {
-   .column.side, .column.middle {
-     width: 100%;
-   }
+  main  {margin:5%; }
+  header h1 {display: none;}
 }

@@ -21,7 +21,7 @@
     <body>
     <!--different header image other for all other pages-->
     <header class="hero2">
-        <h1 class="banner">Easy Recipies</h1>
+        <h1>Easy Recipies</h1>
       </header>
         <!-- Nav Bar -->
         <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
