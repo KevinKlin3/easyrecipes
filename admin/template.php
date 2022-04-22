@@ -44,10 +44,10 @@
                     <a class="nav-link" href="recipes/gallery.php">Recipe Gallery</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link disabled">About Us</a>
+                    <a class="nav-link">About Us</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link disabled">Contact us</a>
+                    <a class="nav-link">Contact us</a>
                   </li>
                 </ul>
                 <form class="d-flex">
