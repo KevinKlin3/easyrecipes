@@ -11,34 +11,24 @@
         <!--FontAwesome kit-->
           <script src="https://kit.fontawesome.com/c0e800fc4a.js" crossorigin="anonymous"></script>
         <!--External Style sheet-->
-          <link rel="stylesheet"  type="text/css" href="..\..\admin\css\index.css">
-          <link rel="stylesheet" type="text/css" href="../../admin/css/gallery.css">
+          <link rel="stylesheet"  type="text/css" href="../admin/css/index.css">
+          <link rel="stylesheet" type="text/css" href="../admin/css/gallery.css">
         <!-- favicon -->
-          <link rel="icon" type="image/png" sizes="32x32" href="..\..\admin\images\logo.png">
-    </head>
+          <link rel="icon" type="image/png" sizes="32x32" href="../admin/images/logo.png">
+        <!--header font from google-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
     <body>
-    <!--php here to show hero img on index; other for all other pages-->
-<?php
- if ($pageTitle == "Home")	{
-   $headerImg =<<<HERE
-       <header class="container-fluid">
-           <img class="img-fluid" src="..\..\admin\images\hero5.svg" alt="collage of food images">
-           </header>
-HERE;
-   }else    {
-   $headerImg =<<<HERE
-        <header class="container-fluid">
-           <img class="img-fluid" src="..\..\admin\images\header.svg" alt="collage of food images">
-           </header>
-HERE;
-}
-        print $headerImg
-?>
+    <!--different header image other for all other pages-->
+    <header class="hero2">
+        <h1 class="banner">Easy Recipies</h1>
+      </header>
         <!-- Nav Bar -->
         <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
          <div class="container-fluid">
              <div class="fluid-img">
-                 <img  src="..\..\admin/images/logo.png" class="navbar-brand" id="logo" alt="logo for page">
+                 <img  src="../admin/images/logo.png" class="navbar-brand" id="logo" alt="logo for page">
               </div>
            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
              <span class="navbar-toggler-icon"></span>
@@ -46,10 +36,10 @@ HERE;
            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                <li class="nav-item">
-                 <a class="nav-link active" aria-current="page" href="..\..\index.php">Home</a>
+                 <a class="nav-link active" aria-current="page" href="../index.php">Home</a>
                </li>
                <li class="nav-item">
-                 <a class="nav-link" href="..\..\gallery.php">Recipe Gallery</a>
+                 <a class="nav-link" href="../recipes/gallery.php">Recipe Gallery</a>
                </li>
                <li class="nav-item">
                  <a class="nav-link disabled">About Us</a>

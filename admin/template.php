@@ -17,10 +17,14 @@
             <link rel="stylesheet" type="text/css" href="admin/css/gallery.css">
         <!-- favicon -->
             <link rel="icon" type="image/png" sizes="32x32" href="admin\images\logo.png">
+        <!--header font from google-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
     </head>
     <body>
       <header class="hero">
-        <!-- <h1 class="banner">Easy Recipies</h1> -->
+       <h1 class="banner">Easy Recipies</h1>
       </header>
         <!-- Nav Bar -->
         <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
@@ -28,16 +32,16 @@
                 <div class="fluid-img">
                     <img  src="admin/images/logo.png" class="navbar-brand" id="logo" alt="logo for page">
                  </div>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNav" aria-controls="myNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-              <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+              <div class="collapse navbar-collapse" id="myNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="gallery.php">Recipe Gallery</a>
+                    <a class="nav-link" href="recipes/gallery.php">Recipe Gallery</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link disabled">About Us</a>
@@ -61,13 +65,14 @@ print $pageContent;
 <hr>
     <footer class="container-fluid">
                 <!-- sign in -->
+            <!--<?php print $loginButton ?>-->
             <a class="button" href="#">Sign In</a>
     <p> Developed by Yordin Kirk, Semhar Bire, Damaris Gonzalez</p>
-    <p>© BHC Web Dev 2022</p>
     <a href="https://www.youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
     <a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram-square"></i></a>
     <a href="https://www.pinterest.com" target="_blank"><i class="fa-brands fa-pinterest"></i></a>
     <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook-square"></i></a>
+    <p>© BHC Web Dev 2022</p>
     </footer>
 </body>
 </html>

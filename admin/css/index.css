@@ -1,28 +1,38 @@
 body {
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
-header  {
+ header  {
   max-width: 100%;
   max-height: auto;
   align-content: center;
   background: #FDAC53;
-}
+} 
 .hero {
-  background-image: url('images/hero5.svg');
+  background-image: url('../images/hero.png');
   max-width: 100vw;
-  height: 33vh;
+  height: 35vw;
   object-fit: contain;
+}
+.hero2 {
+  background-image: url('../images/hero.png');
+  max-width: 100vw;
+  height:20vw;
+  object-fit:contain;
 }
 header h1 {
   position: relative;
-  top: 40%;
-  height: 200px;
+  top: 20%;
+  height: 130px;
   width: auto;
   background-color: #FDAC53;
-  padding-left: 20vw;
+  opacity: 75%;
+  padding-left: 35vw;
   margin: auto;
+  font-weight: bold;
   font-size: 15vh;
-  font-family: cursive;
+  font-family: 'Satisfy', cursive;
+  color: #00758f;
+  text-shadow: 2px 2px 5px white;
 }
 #color-teal {
   color: #00758f;
@@ -96,6 +106,9 @@ footer {
   background-color: #FDAC53;
   color: white;
   text-align: center;
+}
+footer a {
+color: white;
 }
 
 /* favicons*/

@@ -1,6 +1,6 @@
 <?php
 // configuration
-include 'admin\config.php';
+include '../admin/config.php';
 
 // sticky's
 $pageTitle = "Gallery";
@@ -33,7 +33,7 @@ HERE;
          while($stmt->fetch()){ // loop through the result set to build our list
          $selectPost .= <<<HERE
          <img src="$recipeImage" class= "card-img" id="gallery-img">
-         <a href="user/recipes/recipe.php?recipeID=$recipeID" class="card-title">$recipeTitle</a>
+         <a href="recipes/recipe.php?recipeID=$recipeID" class="card-title">$recipeTitle</a>
 HERE;
          }
          $selectPost .= <<<HERE
@@ -53,7 +53,7 @@ HERE;
 
 $pageContent .= $selectPost;
 
-include 'admin/template.php';
+include '../admin/recipeTemplate.php';
 ?>
 
 <!-- <main class="container-fluid>
