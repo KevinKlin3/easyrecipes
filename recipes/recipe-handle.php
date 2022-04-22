@@ -6,7 +6,7 @@ $pageContent .= <<<HERE
 <content class="container-fluid">
    <h2>$recipeTitle</h2>
    <div class="img-fluid">
-   <img href=$'recipeImage'>
+      <div> $recipeImage</div>
    </div>
    <h3></h3>
    <p></p>
@@ -15,5 +15,5 @@ $pageContent .= <<<HERE
 </content>
 HERE;
 
-include_once '../../admin/recipeTemplate.php';
+include_once '../admin/recipeTemplate.php';
 ?>

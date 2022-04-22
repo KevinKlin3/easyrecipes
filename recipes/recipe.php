@@ -1,6 +1,6 @@
 <?php
 
-include '..\..\admin\config.php';
+include '..\admin\config.php';
  if(!$conn)  {
     echo "Failed to connect to MySQL: ". mysqli_connect_error();
 }
@@ -11,6 +11,7 @@ $invalid_recipeTitle = $invalid_recipeContent = $invalid_type = Null;
 $invalid_recipeImage = $fileInfo = $imageName = NULL;
 $pageContent = $msg = NULL;
 $logged_in = FALSE;
+$valid = TRUE;
 
 
 // if(isset($_SESSION['userID'])) {
@@ -19,7 +20,12 @@ $logged_in = FALSE;
 // }else {
 //    $logged_in= FALSE; 
 // }
-
+if(isset($_POST['submit'])) {
+	$firstname = mysqli_real_escape_string($conn, trim($_POST['firstname']));
+	$lastname = mysqli_real_escape_string($conn, trim($_POST['lastname']));
+	$username = mysqli_real_escape_string($conn, trim($_POST['username']));
+	$email = mysqli_real_escape_string($conn, trim($_POST['email']));
+	$password = mysqli_real_escape_string($conn, trim($_POST['password']));
 
 if(filter_has_var(INPUT_POST, 'edit'))  {
    $edit = TRUE;
@@ -39,7 +45,7 @@ if(filter_has_var(INPUT_POST, 'recipeID'))  {
 if ($recipeID) {
 	$stmt = $conn->stmt_init();
    if ($stmt->prepare("SELECT `recipeTitle`, `recipeContent`, `username`, `recipeImage`, `date`, `type` FROM `recipe_table` WHERE `recipeID` = ?")) {
-      $stmt->bind_param("i", $recipeID);
+      $stmt->bind_param("isssis", $recipeID);
       $stmt->execute();
       $stmt->bind_result($recipeTitle, $recipeContent, $username, $recipeImage, $date, $type);
       $stmt->fetch();
@@ -288,6 +294,6 @@ HERE;
 HERE;
 }
 
-include '../../admin/recipeTemplate.php';
+include '../admin/recipeTemplate.php';
 
 ?>

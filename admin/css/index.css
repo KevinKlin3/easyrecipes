@@ -118,6 +118,9 @@ width: 72px;
 height: 72px;
 background-position: -72px 0;
 }
+#gallery-img {
+  max-width: 400px;
+}
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
    .column.side, .column.middle {
