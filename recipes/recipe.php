@@ -45,7 +45,7 @@ if(filter_has_var(INPUT_POST, 'recipeID'))  {
 if ($recipeID) {
 	$stmt = $conn->stmt_init();
    if ($stmt->prepare("SELECT `recipeTitle`, `recipeContent`, `username`, `recipeImage`, `date`, `type` FROM `recipe_table` WHERE `recipeID` = ?")) {
-      $stmt->bind_param("isssis", $recipeID);
+      $stmt->bind_param("i", $recipeID);
       $stmt->execute();
       $stmt->bind_result($recipeTitle, $recipeContent, $username, $recipeImage, $date, $type);
       $stmt->fetch();
