@@ -1,5 +1,5 @@
 <?php
-include '../admin/config.phpconfig.php';
+include '../admin/config.php';
 if (!$conn) {
    echo "Failed to connect to MySQL: ".mysqli_connect_error($conn);
 }//test connection first

@@ -1,31 +1,22 @@
 <?php
 
-include '..\admin\config.php';
- if(!$conn)  {
-    echo "Failed to connect to MySQL: ". mysqli_connect_error();
+include '../admin/config.php';
+if(!$conn)  {
+   echo "Failed to connect to MySQL: ". mysqli_connect_error();
 }
 
 $pageTitle = "My recipes";
 $recipeTitle = $recipeContent = $recipeImage = $type = $date = NULL;
-$invalid_recipeTitle = $invalid_recipeContent = $invalid_type = Null;
-$invalid_recipeImage = $fileInfo = $imageName = NULL;
-$pageContent = $msg = NULL;
-$logged_in = FALSE;
-$valid = TRUE;
+$invalid_recipeTitle = $invalid_recipeContent = $invalid_type = $invalid_recipeImage = Null;
+$pageContent = $msg =  NULL;
 
 
-// if(isset($_SESSION['userID'])) {
-//    $userID = $_SESSION['userID'];
-//    $logged_in = TRUE;
-// }else {
-//    $logged_in= FALSE; 
-// }
-if(isset($_POST['submit'])) {
-	$firstname = mysqli_real_escape_string($conn, trim($_POST['firstname']));
-	$lastname = mysqli_real_escape_string($conn, trim($_POST['lastname']));
-	$username = mysqli_real_escape_string($conn, trim($_POST['username']));
-	$email = mysqli_real_escape_string($conn, trim($_POST['email']));
-	$password = mysqli_real_escape_string($conn, trim($_POST['password']));
+if(isset($_SESSION['userID'])) {
+    $userID = $_SESSION['userID'];
+    $logged_in = TRUE;
+ }else {
+    $logged_in= FALSE; 
+ }
 
 if(filter_has_var(INPUT_POST, 'edit'))  {
    $edit = TRUE;
@@ -42,36 +33,10 @@ if(filter_has_var(INPUT_POST, 'recipeID'))  {
    $recipeID = NULL;
 }
 
-if ($recipeID) {
-	$stmt = $conn->stmt_init();
-   if ($stmt->prepare("SELECT `recipeTitle`, `recipeContent`, `username`, `recipeImage`, `date`, `type` FROM `recipe_table` WHERE `recipeID` = ?")) {
-      $stmt->bind_param("i", $recipeID);
-      $stmt->execute();
-      $stmt->bind_result($recipeTitle, $recipeContent, $username, $recipeImage, $date, $type);
-      $stmt->fetch();
-      $stmt->close();
-   }
-
-$buttons = <<<HERE
-      <div class="form-group">
-         <input type="hidden" name"recipeID" value="$recipeID">
-         <input type="hidden" name="process">
-         <input type="submit" name="update" value="Update Recipe" class="mb-2 btn btn-info">
-      </div>
-HERE;
-} else {
-   $buttons = <<<HERE
-      <div class="form-group">
-         <input type="hidden" name="insert">
-         <input type="submit" name="update" value="Save Recipe" class="mb-2 btn btn-success">
-      </div>
-HERE;
-}
-
 //check delete Recipe posted
-if(filter_has_var(INPUT_POST, 'delete'))  {
+if (filter_has_var(INPUT_POST, 'delete'))  {
    $stmt = $conn->stmt_init();
-   if ($stmt->prepare("DELETE FROM `recipe_table` WHERE = ?")){ 
+   if ($stmt->prepare("DELETE FROM `recipe_table` WHERE `recipeID` = ?")){ 
       $stmt->bind_param("i", $recipeID);
       $stmt->execute();
       $stmt->close();
@@ -79,22 +44,23 @@ if(filter_has_var(INPUT_POST, 'delete'))  {
    header ("recipe.php");//route back to home after deletion
    exit();
 }
+
 //Recipe Title
 if(filter_has_var(INPUT_POST, 'process'))  {
    $valid = TRUE;
-   $title = mysqli_real_escape_string($conn, trim($_POST['recipeTitle'])); 
+   $recipeTitle = mysqli_real_escape_string($conn, trim($_POST['recipeTitle'])); 
    if (empty($RecipeTitle))  {
-         $invalid_title = '<span class="error">Required</span>';
+         $invalid_recipeTitle = '<span class="error">Required</span>';
          $valid = FALSE;
       }
 //content
-   $content = mysqli_real_escape_string($conn, trim($_POST['recipeContent'])); 
+   $recipeContent = mysqli_real_escape_string($conn, trim($_POST['recipeContent'])); 
    if (empty($recipeContent))  {
          $invalid_recipeContent = '<span class="error">Required</span>';
          $valid = FALSE;
       }
 //type
-      $content = mysqli_real_escape_string($conn, trim($_POST['type'])); 
+      $type = mysqli_real_escape_string($conn, trim($_POST['type'])); 
    if (empty($type))  {
          $invalid_type = '<span class="error">Required</span>';
          $valid = FALSE;
@@ -154,21 +120,20 @@ if (!empty($_FILES['recipeImages']['name'])) {
                         $msg = "<p class='text-success'>Record Updated</p>";
                      }else {$msg = '<p class="error">Image Update Failed</p>';}//EO row msg else
                   }//EO row else
-               }/*EO move IF*/ else {
-               $invalid_recipeImage .='<p><span class="error">Your File could not be uploaded. ';
-            }//EO invalid photo else
+               }/*EO move IF*/ else {$invalid_recipeImage .='<p><span class="error">Your File could not be uploaded. ';}//EO invalid photo else
             }//EO File exist else
          }//EO img if
    }/*EO file ext if*/ else {
          $invalid_recipeImage = '<span class= "error">Invalid File. This is not an image.</span>';
          $valid = FALSE;
       }//EO invalid file else
+}//EO empty files
 
    if($valid)  {
       if(filter_has_var(INPUT_POST, 'insert'))  {
          $stmt = $conn->stmt_init();
-         if ($stmt->prepare("INSERT INTO `recipe_table`(`recipeTitle`, `recipeContent`, `username`, `recipeImage`, `date`, `type` ) VALUES (?, ?, ?, ?, ?, ?)")) {
-            $stmt->bind_param("ssssis", $recipeTitle, $recipeContent, $username, $recipeImage, $date, $type);
+         if ($stmt->prepare("INSERT INTO `recipe_table`(DEFAULT, `recipeTitle`, `recipeContent`, `username`, `recipeImage`, DEFAULT, `type` ) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+            $stmt->bind_param("issssis", $recipeID, $recipeTitle, $recipeContent, $username, $recipeImage, $date, $type);
             $stmt->execute();
             $stmt->close();
          }
@@ -186,13 +151,38 @@ if (!empty($_FILES['recipeImages']['name'])) {
          header ("Location: recipe.php?recipeID=$recipeID");
          exit();
       }
-   } 
-}
+   }
 }//EO process
+if ($recipeID) {
+	$stmt = $conn->stmt_init();
+   if ($stmt->prepare("SELECT `recipeTitle`, `recipeContent`, `username`, `recipeImage`, `date`, `type` FROM `recipe_table` WHERE `recipeID` = ?")) {
+      $stmt->bind_param("i", $recipeID);
+      $stmt->execute();
+      $stmt->bind_result($recipeTitle, $recipeContent, $username, $recipeImage, $date, $type);
+      $stmt->fetch();
+      $stmt->close();
+   }
+
+$buttons = <<<HERE
+      <div class="form-group">
+         <input type="hidden" name"recipeID" value="$recipeID">
+         <input type="hidden" name="process">
+         <input type="submit" name="update" value="Update Recipe" class="mb-2 btn btn-info">
+      </div>
+HERE;
+} else {
+   $buttons = <<<HERE
+      <div class="form-group">
+         <input type="hidden" name="insert">
+         <input type="submit" name="update" value="Save Recipe" class="mb-2 btn btn-success">
+      </div>
+HERE;
+}
 if ($edit) {
    $pageContent .= <<<HERE
    <section class="container-fluid m-2">
       $msg
+      <h2>Edit your Recipe Here</h2>
       <form action="recipe.php" method="post">
          <div class="form-group">
             <label for="recipeTitle">Recipe Title</label>
@@ -209,12 +199,12 @@ if ($edit) {
       <p> Please select an image for your recipe.</p>
       <div class="form-group">
          <input type="hidden" name="MAX_FILE_SIZE" value="300000">
-         <label for="profilePic">File to Uploads</label> $invalid_recipeImage
+         <label for="recipeImage">File to Uploads</label> $invalid_recipeImage
          <input type="file" name="recipeImage" id="recipeImage" class="mb-3 form">
       </div>
    $buttons
       </form>
-      <form action="recipe.php" method="post">
+      <form action="recipe-handle.php" method="post">
          <div class="form-group">
             <input type="submit" name="cancel" value="back" class="mb-2 btn btn-danger">
          </div>
