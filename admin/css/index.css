@@ -99,8 +99,8 @@ background-position: -72px 0;
   max-width: 400px;
 }
 #title {
-  padding-left: 30%;
-  color:#00758f;
+  background-color: #00758f;
+  color:wheat;
   font-size: 8vh;
   font-family: 'Satisfy', cursive;
 }

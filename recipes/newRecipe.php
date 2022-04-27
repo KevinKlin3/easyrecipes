@@ -87,7 +87,7 @@ if(isset($_POST['submit'])) {
                         $row_count = mysqli_affected_rows($conn);
                         if($row_count == 1)  {
                            $recipeID = mysqli_insert_id($conn);
-                           header("Location: recipe-handle.php");
+                           header("Location: newRecipe.php");
                            exit();
                            //$loggedin = TRUE; don't need this anymore will redirect
                            $msg = "<p>Record Inserted</p>";
@@ -137,35 +137,37 @@ HERE;
       $msg = "<p class='error'>Record " . $_GET['action'] ."</p>";
    }
 $pageContent .= <<<HERE
-<main class="container ml-3">
-<h2 id="myRecipe">Add a New Recipe Here</h2>
-<form action="newRecipe.php" enctype="multipart/form-data" method = "post">
-   <div class="form-group">
-      <label for="recipeTitle">Recipe Title</label>
-      <input type="text" name="recipeTitle" id="recipeTitle" value="$recipeTitle" placeholder="Recipe Title" class ="form-control">$invalid_recipeTitle
-   </div>
-   <h4>Please select an image for your recipe.</h4>
-   <div class="form-group">
-      <input type="hidden" name="MAX_FILE_SIZE" value="300000">
-      <label for="recipeImage">File to Upload:</label>$invalid_recipeImage
-      <input class="form-control" type="file" name="recipeImage" id="recipeImage">
-   </div>
-   <div class="form-group">
-      <label for="recipeContent">Recipe :</label>
-      <input type="hidden" name="recipeContent" id="recipeContent" value="$recipeContent">
-      <textarea class="form-control" rows="5" id="recipeContent" name="recipeContent"></textarea>$invalid_recipeContent
-   </div>
-   <div class="form-group">
-      <label for="type">Type :</label>
-      <input type="text" name="type" id="type" value="$type" placeholder="Breakfast, Lunch, Dinner, Dessert" class = "form-control">$invalid_type
-   </div>
+<main class="container bg-light ml-3 mt-1">
+   <h2 id="myRecipe" class="d-flex justify-content-center">Add a New Recipe Here</h2>
+   <form action="newRecipe.php" enctype="multipart/form-data" method = "post">
+      <div class="form-group">
+         <label for="recipeTitle">Recipe Title</label>
+         <input type="text" name="recipeTitle" id="recipeTitle" value="$recipeTitle" placeholder="Recipe Title" class ="form-control" required>$invalid_recipeTitle
+      </div>
+      <h4>Please select an image for your recipe.</h4>
+      <div class="form-group">
+         <input type="hidden" name="MAX_FILE_SIZE" value="300000">
+         <label for="recipeImage">File to Upload:</label>$invalid_recipeImage
+         <input class="form-control" type="file" name="recipeImage" id="recipeImage" required>
+      </div>
+      <div class="form-group">
+         <label for="recipeContent">Recipe :</label>
+         <input type="hidden" name="recipeContent" id="recipeContent" value="$recipeContent">
+         <textarea class="form-control" rows="5" id="recipeContent" name="recipeContent" required></textarea>$invalid_recipeContent
+      </div>
+      <div class="form-group">
+         <label for="type">Type :</label>
+         <input type="text" name="type" id="type" value="$type" placeholder="Breakfast, Lunch, Dinner, Dessert" class = "form-control" required>$invalid_type
+      </div>
+      <div class="btn-group">
 
-   <div>
-      <input type="submit" name="submit" value="Submit Recipe" class= "btn btn-outline-success mt-3">
-      <input type="submit" name="reset" value="Reset Page" class= "btn btn-outline-warning mt-3">
-      <input type="submit" name="cancel" value="Back" class= "btn btn-outline-danger mt-3">
-   </div>
-</form>
+         <input type="submit" name="submit" value="Submit" class= "btn btn-outline-success m-2">
+
+         <input type="submit" name="reset" value="Reset" class= "btn btn-outline-warning  m-2">
+         
+         <input type="submit" name="cancel" value="Back" class= "btn btn-outline-danger  m-2">
+      </div>
+   </form>
 </main>
 HERE;
 }//EO else form

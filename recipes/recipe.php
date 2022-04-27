@@ -67,13 +67,13 @@ if(filter_has_var(INPUT_POST, 'process'))  {
       }
 
 //image
-if (!empty($_FILES['recipeImages']['name'])) {
-   unlink("recipeImages/" . $_POST['imageName']);
+if (!empty($_FILES['recipeImage']['name'])) {
+   unlink("recipeImages/" . $_POST['recipeImageName']);
    $filetype = pathinfo($_FILES['recipeImages']['name'], PATHINFO_EXTENSION);
-   if((($filetype == "gif") or ($filetype == "jpg") or ($filetype == "png")) and $_FILES['recipeImages']['size'] < 300000) {
-      if ($_FILES["recipeImages"]["error"] > 0)  {
+   if((($filetype == "gif") or ($filetype == "jpg") or ($filetype == "png")) and $_FILES['recipeImage']['size'] < 300000) {
+      if ($_FILES["recipeImage"]["error"] > 0)  {
          $valid = FALSE;
-         $fileError = $_FILES['recipeImages']['error'];
+         $fileError = $_FILES['recipeImage']['error'];
          $invalid_recipeImage= '<p class= "error"> Return Code: $fileError<br>';
             switch ($fileError)  {
                case 1:
@@ -104,7 +104,7 @@ if (!empty($_FILES['recipeImages']['name'])) {
             $fileInfo .= "Temp File: " . $_FILES["recipeImage"]["tmp_name"] . "</p>";
             
             if (file_exists("$file"))  {
-               $invalid_recipeImage = "<span class ='error'>$imageName already exists.</span>";
+               $invalid_recipeImage = "<span class ='error'>$recipeImageName already exists.</span>";
                $valid = FALSE; 
             }else {
                if (move_uploaded_file($_FILES["recipeImage"]['tmp_name'], "$file")) {
@@ -167,7 +167,7 @@ if ($recipeID) {
 
 $buttons = <<<HERE
       <div class="form-group">
-         <input type="hidden" name"recipeID" value="$recipeID">
+         <input type="hidden" name="recipeID" value="$recipeID">
          <input type="hidden" name="process">
          <input type="submit" name="update" value="Update Recipe" class="mb-2 btn btn-info">
       </div>
@@ -182,27 +182,27 @@ HERE;
 }
 if ($edit) {
    $pageContent .= <<<HERE
-   <main class="container ml-3">
+   <main class="container ml-3 mt-1 bg-light">
       $msg
-      <h2 id="myRecipe">Edit your Recipe Here</h2>
+      <h2 id="myRecipe" class="d-flex justify-content-center">Edit your Recipe Here</h2>
       <form action="recipe.php" method="post">
          <div class="form-group">
             <label for="recipeTitle">Recipe Title</label>
-            <input type="text" name="recipeTitle" id="recipeTitle" value="$recipeTitle" placeholder="Recipe Title" class ="form-control">$invalid_recipeTitle
+            <input type="text" name="recipeTitle" id="recipeTitle" value="$recipeTitle" placeholder="Recipe Title" class ="form-control" required>$invalid_recipeTitle
          </div>
          <div class="form-group">
-         <label for="type">Category</label>
-         <input type="text" name="type" id="type" value="$type" placeholder="Breakfast, Lunch, Dinner" class ="form-control">$invalid_type
-      </div>
+            <label for="type">Category</label>
+               <input type="text" name="type" id="type" value="$type" placeholder="Breakfast, Lunch, Dinner" class ="form-control" required>$invalid_type
+         </div>
          <div class="form-group">
-            <label for="recipeContent">Recipe Content</label>
-            <textarea name="recipeContent" id="recipeContent" class="form-control">$recipeContent</textarea>$invalid_recipeContent
+            <label for="recipeContent">Recipe:</label>
+               <textarea name="recipeContent" id="recipeContent" class="form-control" required>$recipeContent</textarea>$invalid_recipeContent
          </div>
       <p> Please select an image for your recipe.</p>
       <div class="form-group">
          <input type="hidden" name="MAX_FILE_SIZE" value="300000">
-         <label for="recipeImage">File to Uploads</label> $invalid_recipeImage
-         <input type="file" name="recipeImage" id="recipeImage" class="mb-3 form">
+            <label for="recipeImage">File to Uploads</label> $invalid_recipeImage
+               <input type="file" name="recipeImage" id="recipeImage" class="mb-3 form">
       </div>
    $buttons
       </form>
@@ -217,7 +217,7 @@ HERE;
 	$pageContent .= <<<HERE
    <main class="container ml-3">
    <div class="bg-light">
-      <h2 id="title">$recipeTitle</h2>
+      <h2 class="d-flex justify-content-end" id="title">$recipeTitle</h2>
       <p>$recipeImage</p>
       <p>$recipeContent</p>
       <div class="btn-group">
