@@ -5,12 +5,12 @@ if (!$conn){
 }
 
 // Stickies
-$pageTitle = NULL;
-$pageContent = $recipeImage = $recipeContent = Null;
+$pageTitle = $pageContent = NULL;
+$recipeTitle = $recipeImage = $recipeContent = $username =Null;
 
 $pageContent .= <<<HERE
 <content class="container-fluid">
-   <h2>$recipeTitle</h2>
+   <h2 class='recipe-title'>$recipeTitle</h2>
    <div class="img-fluid">
       <div> $recipeImage</div>
    </div>

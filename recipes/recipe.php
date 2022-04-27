@@ -96,21 +96,21 @@ if (!empty($_FILES['recipeImages']['name'])) {
                   break;
             }//EO Switch
       } else {
-            $imageName = $_FILES["recipeImages"]["name"];
+            $imageName = $_FILES["recipeImage"]["name"];
             $file = "recipeImages/$imageName";
-            $fileInfo = "<p>Upload: $imageName<br>";
-            $fileInfo .= "Type: " . $_FILES["recipeImages"]["type"] . "<br>";
-            $fileInfo .= "Size: " . ($_FILES["recipeImages"]["size"] / 1024) . " KB<br>";
-            $fileInfo .= "Temp File: " . $_FILES["recipeImages"]["tmp_name"] . "</p>";
+            $fileInfo = "<p>Upload: $recipeImageName<br>";
+            $fileInfo .= "Type: " . $_FILES["recipeImage"]["type"] . "<br>";
+            $fileInfo .= "Size: " . ($_FILES["recipeImage"]["size"] / 1024) . " KB<br>";
+            $fileInfo .= "Temp File: " . $_FILES["recipeImage"]["tmp_name"] . "</p>";
             
             if (file_exists("$file"))  {
                $invalid_recipeImage = "<span class ='error'>$imageName already exists.</span>";
                $valid = FALSE; 
             }else {
-               if (move_uploaded_file($_FILES["recipeImages"]['tmp_name'], "$file")) {
+               if (move_uploaded_file($_FILES["recipeImage"]['tmp_name'], "$file")) {
                   $fileInfo .= "<p class='text-success'>Your file has been uploaded. Stored as: $file</p>";
 
-                  $query = "UPDATE `recipe_table` SET `recipeImage` = '$imageName' WHERE `recipeID` = $recipeID;";
+                  $query = "UPDATE `recipe_table` SET `recipeImage` = '$recipeImageName' WHERE `recipeID` = $recipeID;";
                   $result = mysqli_query($conn, $query);
                   if (!$result)  {
                      die(mysqli_error($conn));
@@ -132,13 +132,13 @@ if (!empty($_FILES['recipeImages']['name'])) {
    if($valid)  {
       if(filter_has_var(INPUT_POST, 'insert'))  {
          $stmt = $conn->stmt_init();
-         if ($stmt->prepare("INSERT INTO `recipe_table`(DEFAULT, `recipeTitle`, `recipeContent`, `username`, `recipeImage`, DEFAULT, `type` ) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+         if ($stmt->prepare("INSERT INTO `recipe_table`(`recipeID`, `recipeTitle`, `recipeContent`, `username`, `recipeImage`, DEFAULT, `type` ) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
             $stmt->bind_param("issssis", $recipeID, $recipeTitle, $recipeContent, $username, $recipeImage, $date, $type);
             $stmt->execute();
             $stmt->close();
          }
          $postID = mysqli_insert_id($conn);
-         header ("Location: user/recipes/recipe.php?recipeID=$recipeID");
+         header ("Location: recipe-handle.php?recipeID=$recipeID");
          exit();
       }
       if(filter_has_var(INPUT_POST, 'update'))  {
@@ -148,9 +148,11 @@ if (!empty($_FILES['recipeImages']['name'])) {
             $stmt->execute();
             $stmt->close();
          }
-         header ("Location: recipe.php?recipeID=$recipeID");
+         header ("Location: recipe-handle.php?recipeID=$recipeID");
          exit();
       }
+   }else    {
+      echo 'unable to process';//debug
    }
 }//EO process
 if ($recipeID) {
@@ -180,9 +182,9 @@ HERE;
 }
 if ($edit) {
    $pageContent .= <<<HERE
-   <section class="container-fluid m-2">
+   <main class="container ml-3">
       $msg
-      <h2>Edit your Recipe Here</h2>
+      <h2 id="myRecipe">Edit your Recipe Here</h2>
       <form action="recipe.php" method="post">
          <div class="form-group">
             <label for="recipeTitle">Recipe Title</label>
@@ -204,18 +206,18 @@ if ($edit) {
       </div>
    $buttons
       </form>
-      <form action="recipe-handle.php" method="post">
+      <form action="recipe.php" method="post">
          <div class="form-group">
             <input type="submit" name="cancel" value="back" class="mb-2 btn btn-danger">
          </div>
       </form>
-   </section>\n
+   </main>
 HERE;
 } elseif ($recipeID) {
 	$pageContent .= <<<HERE
-   <section class="container-fluid">
-   <div class="bg-light m-3">
-      <h2>$recipeTitle</h2>
+   <main class="container ml-3">
+   <div class="bg-light">
+      <h2 id="title">$recipeTitle</h2>
       <p>$recipeImage</p>
       <p>$recipeContent</p>
       <div class="btn-group">
@@ -238,7 +240,7 @@ HERE;
       </form>
       </div>
    </div>
-   </section>
+   </main>
 HERE;
 } else {
 // 	select data from db
@@ -254,6 +256,7 @@ HERE;
 
       if($classList_row_cnt > 0){ // make sure we have at least 1 record
          $selectPost = <<<HERE
+         <container class="container-md">
          <ul>\n
 HERE;
          while($stmt->fetch()){ // loop through the result set to build our list
@@ -263,6 +266,7 @@ HERE;
          }
          $selectPost .= <<<HERE
          </ul>\n
+         </container>
 HERE;
       } else {
          $selectPost = "<p>There are no recipes to see.</p>";
@@ -274,11 +278,11 @@ HERE;
    }
 
    $pageContent .= <<<HERE
-   <h2>My Recipes</h2>
+   <h2 id="myRecipe">My Recipes</h2>
    $selectPost
-   <form action="recipe.php" method="post">
+   <form action="newRecipe.php" method="post">
    <div class="form-group">
-      <input type="submit" name="edit" value="Create New Recipe" class="m-2 btn btn-success">
+      <input type="submit" name="insert" value="Create New Recipe" class="m-2 btn btn-success">
    </div>
    </form>
 HERE;

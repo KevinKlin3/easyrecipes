@@ -98,7 +98,21 @@ background-position: -72px 0;
 #gallery-img {
   max-width: 400px;
 }
-
+#title {
+  padding-left: 30%;
+  color:#00758f;
+  font-size: 8vh;
+  font-family: 'Satisfy', cursive;
+}
+#myRecipe {
+  padding-left: 5vh;
+  color:#00758f;
+  font-size: 8vh;
+  font-family: 'Satisfy', cursive;
+}
+main  {
+  top: 2rem;
+}
 /* large screens */
 @media screen and (max-width: 1080px) {
   main  {margin:5%;}
@@ -107,6 +121,9 @@ background-position: -72px 0;
     font-size: 10vh; 
     flex-wrap: wrap;
     height:fit-content;}
+}
+#title  {
+  padding-left: 16%;
 }
 
 /* Medium screens and under */

@@ -5,12 +5,12 @@ if (!$conn) {
 }//test connection first
 
 $pageTitle = "Add New Recipes";
-$recipeTitle = $recipeContent = $recipeImage = $type = $date = NULL;
+$recipeID = $recipeTitle = $recipeContent = $recipeImage = $type = $date = NULL;
 $invalid_recipeTitle = $invalid_recipeContent = $invalid_type = Null;
 $invalid_recipeImage = $fileInfo = $imageName = NULL;
 $pageContent = $msg = NULL;
 $valid = True;
-$loggedIn = FALSE;
+$logged_in = FALSE;
 
 
 //error test
@@ -23,7 +23,7 @@ $loggedIn = FALSE;
 if(isset($_POST['submit'])) {
 	$recipeTitle = mysqli_real_escape_string($conn, trim($_POST['recipeTitle']));
 	$recipeContent = mysqli_real_escape_string($conn, trim($_POST['recipeContent']));
-	$type = mysqli_real_escape_string($conn, trim($_POST['username']));
+	$type = mysqli_real_escape_string($conn, trim($_POST['type']));
 
 
    $recipeTitle = mysqli_real_escape_string($conn, ucwords(trim($_POST['recipeTitle'])));
@@ -40,9 +40,9 @@ if(isset($_POST['submit'])) {
 
    
    if ($valid) {
-      $filetype = pathinfo($_FILES['recipeImages']['name'], PATHINFO_EXTENSION);
-      if((($filetype == "gif") or ($filetype == "jpg") or ($filetype == "png")) and $_FILES['recipeImages']['size'] < 300000) {
-         if ($_FILES["recipeImages"]["error"] > 0)  {
+      $filetype = pathinfo($_FILES['recipeImage']['name'], PATHINFO_EXTENSION);
+      if((($filetype == "gif") or ($filetype == "jpg") or ($filetype == "png")) and $_FILES['recipeImage']['size'] < 300000) {
+         if ($_FILES["recipeImage"]["error"] > 0)  {
             $invalid_recipeImage= '<p class= "error"> Return Code: $fileError<br>';
                switch ($fileError)  {
                   case 1:
@@ -65,29 +65,29 @@ if(isset($_POST['submit'])) {
                      break;
                }//EO Switch
             } else {
-               $imageName = $_FILES["recipeImages"]["name"];
+               $imageName = $_FILES["recipeImage"]["name"];
                $file = "recipeImages/$recipeImage";
                $fileInfo = "<p>Upload: $recipeImage<br>";
-               $fileInfo .= "Type: " . $_FILES["recipeImages"]["type"] . ",<br>";
-               $fileInfo .= "Size: " . ($_FILES["recipeImages"]["size"] / 1024) . "KB<br>";
-               $fileInfo .= "Temp File: " . $_FILES["recipeImages"]["tmp_name"] . "</p>";
+               $fileInfo .= "Type: " . $_FILES["recipeImage"]["type"] . ",<br>";
+               $fileInfo .= "Size: " . ($_FILES["recipeImage"]["size"] / 1024) . "KB<br>";
+               $fileInfo .= "Temp File: " . $_FILES["recipeImage"]["tmp_name"] . "</p>";
                
                if (file_exists("$file"))  {
                   $invalid_recipeImage = "<span class ='error'> $recipeImage already exists.</span>";
                   $valid = FALSE; 
                }else {
-                  if (move_uploaded_file($_FILES["recipeImages"]['tmp_name'], "$file")) {
+                  if (move_uploaded_file($_FILES["recipeImage"]['tmp_name'], "$file")) {
                      $fileInfo .= "<p>Your file has been uploaded. Stored as: $file</p>";
 
-                     $query = "INSERT INTO `easy_recipe` VALUES (DEFAULT, '$recipeTitle', '$recipeImage', '$recipeConent', DEFAULT, '$type', DEFAULT);";
+                     $query = "INSERT INTO `easy_recipe` VALUES (DEFAULT, `$recipeTitle`, `$recipeImage`, `$recipeConent`, DEFAULT, `$type`, DEFAULT);";
                      $result = mysqli_query($conn, $query);
                      if (!$result)  {
                         die(mysqli_error($conn));
                      }else {
                         $row_count = mysqli_affected_rows($conn);
                         if($row_count == 1)  {
-                           $memberID = mysqli_insert_id($conn);
-                           header("Location: login.php");
+                           $recipeID = mysqli_insert_id($conn);
+                           header("Location: recipe-handle.php");
                            exit();
                            //$loggedin = TRUE; don't need this anymore will redirect
                            $msg = "<p>Record Inserted</p>";
@@ -96,93 +96,79 @@ if(isset($_POST['submit'])) {
                         }//EO row msg else
                      }//EO row else
                   }/*EO move IF*/ else {
-                  $invalidPhoto .='<p><span class="error">Your File could not be uploaded.</span></p>';
+                  $invalid_recipeImage .='<p><span class="error">Your File could not be uploaded.</span></p>';
                }//EO invalid photo else
             }//EO File exist else
          }//EO img if
       }/*EO file ext if*/ else {
-            $invalidPhoto = '<span class= "error">Invalid File. This is not an image.</span>';
+            $invalid_recipeImage = '<span class= "error">Invalid File. This is not an image.</span>';
             $valid = FALSE;
          }//EO invalid file else
    }//EO valid if
 }//EO if Submit
-if($loggedIn) {
-   $query = "SELECT * FROM `membership` WHERE `memberID` = $memberID;";
+if($logged_in) {
+   $query = "SELECT * FROM `recipe_table` WHERE `recipeID` = $recipeID;";
    $result = mysqli_query($conn, $query);
    if (!$result)  {
       die(mysqli_error($conn));
    }//EO if !result
    if ($row = mysqli_fetch_assoc($result))   {
-      $firstname = $row['firstname'];
-      $recipeTitle = $row['lastname'];
+      $recipeTitle = $row['recipeTitle'];
+      $recipeImage = $row['recipeImage'];
+      $recipeConent = $row['recipeConent'];
       $username = $row['username'];
-      $email = $row['email'];
-      $image = $row['image'];
+      $date = $row['date'];
+      $type = $row['type'];
    }/*EO if results*/ else {
-      $msg = "Sorry, We couldn't find your record.";
+      $msg = "Sorry, We couldn't find your recipe.";
    }//EO else query
    $pageContent .= <<<HERE
-<section class="container-fluid">
-$msg
-<p>Thank you, $firstname $recipeTitle.</p>
-<figure><img src="uploads/$image" alt= "Profile Image" class = profilePic" />
-   <figcaption>Member: $firstname $recipeTitle</figcaption>
-</figure>
-<p>Email: $email</p>
-<p>You are now logged into the system. We hope you enjoy the site.</p>
-<p>Your information has been saved. Please use the username below for future login.</p>
-<p>Username: <strong>$username</strong></p>
-</section>\n
+   <content class="container-fluid">
+   <h2 class='recipe-title'>$recipeTitle</h2>
+   <div class="img-fluid">
+      <div> $recipeImage</div>
+   </div>
+   <h3>$username</h3>
+   <p>$recipeContent</p>
+</content>
 HERE;
 }/*EO if logged in*/else {
    if(isset($_GET['action'])) {
       $msg = "<p class='error'>Record " . $_GET['action'] ."</p>";
    }
 $pageContent .= <<<HERE
-<h2>New users Register Here</h2>
-<form action="register.php" enctype="multipart/form-data" method = "post">
+<main class="container ml-3">
+<h2 id="myRecipe">Add a New Recipe Here</h2>
+<form action="newRecipe.php" enctype="multipart/form-data" method = "post">
    <div class="form-group">
-      <label for="firstname">First Name</label>
-      <input type="text" name="firstname" id="firstname" value="$firstname" placeholder="First Name" class = "form-control">$invalidFirst
+      <label for="recipeTitle">Recipe Title</label>
+      <input type="text" name="recipeTitle" id="recipeTitle" value="$recipeTitle" placeholder="Recipe Title" class ="form-control">$invalid_recipeTitle
    </div>
-   <div class="form-group">
-      <label for="lastname">Last Name</label>
-      <input type="text" name="lastname" id="lastname" value="$recipeTitle" placeholder="Last Name" class = "form-control">$invalidLast
-   </div>
-   <div class="form-group">
-      <label for="email">Email</label>
-      <input type="text" name="email" id="email" value="$email" placeholder="email" class = "form-control">$invalidEformat
-   </div>
-   <div class="form-group">
-      <label><span class="error">*</span> Password:</label>
-      <input type="password" id="regPassword1" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-      title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
-      placeholder="password" onkeyup="strongPW()" required />
-      <span class="error">$invalidPass</span>
-      
-      <label class="registrationLabel"><span class="error">*</span> Re-type Password: </label>
-      <input type="password" id="regPassword2" name="password2" placeholder="Confirm Password" onkeyup="checkPW()" required />
-      <span id="match"></span>
-      
-      <p>Password must contain these characters:</p>
-      <p id="capital" class="invalid">An <b>uppercase</b> letter</p>
-      <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-      <p id="number" class="invalid">A <b>number</b></p>
-      <p id="length" class="invalid">Minimum <b>8 characters</b></p>
-   </div>
-   <h4>Please select an image for you profile.</h4>
+   <h4>Please select an image for your recipe.</h4>
    <div class="form-group">
       <input type="hidden" name="MAX_FILE_SIZE" value="300000">
-      <label for="profilePic">File to Upload:</label>$invalidPhoto
-      <input class="form-control" type="file" name="profilePic" id="profilePic">
+      <label for="recipeImage">File to Upload:</label>$invalid_recipeImage
+      <input class="form-control" type="file" name="recipeImage" id="recipeImage">
    </div>
+   <div class="form-group">
+      <label for="recipeContent">Recipe :</label>
+      <input type="hidden" name="recipeContent" id="recipeContent" value="$recipeContent">
+      <textarea class="form-control" rows="5" id="recipeContent" name="recipeContent"></textarea>$invalid_recipeContent
+   </div>
+   <div class="form-group">
+      <label for="type">Type :</label>
+      <input type="text" name="type" id="type" value="$type" placeholder="Breakfast, Lunch, Dinner, Dessert" class = "form-control">$invalid_type
+   </div>
+
    <div>
-      <input type="submit" name="submit" value="Submit Profile" class= "btn btn-success">
-      <input type="submit" name="reset" value="Reset Page" class= "btn btn-outline-danger">
+      <input type="submit" name="submit" value="Submit Recipe" class= "btn btn-outline-success mt-3">
+      <input type="submit" name="reset" value="Reset Page" class= "btn btn-outline-warning mt-3">
+      <input type="submit" name="cancel" value="Back" class= "btn btn-outline-danger mt-3">
    </div>
 </form>
+</main>
 HERE;
 }//EO else form
-$pageTitle = "Register";
-include "template.php";
+$pageTitle = "New Recipe";
+include '../admin/recipeTemplate.php';
 ?>
