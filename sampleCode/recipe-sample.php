@@ -46,32 +46,37 @@ if (filter_has_var(INPUT_POST, 'delete'))  {
 }
 
 //Recipe Title
-if(filter_has_var(INPUT_POST, 'update'))  {
+if(filter_has_var(INPUT_POST, 'process'))  {
    $valid = TRUE;
    $recipeTitle = mysqli_real_escape_string($conn, trim($_POST['recipeTitle'])); 
    if (empty($recipeTitle))  {
-         $invalid_recipeTitle = '<span class="error">Required</span>';
-         $valid = FALSE;
+      $invalid_recipeTitle = '<span class="error">Required</span>';
+      $invalid = '<span class="error">Title Required</span>';
+      $valid = FALSE;
       }
 //content
    $recipeContent = mysqli_real_escape_string($conn, trim($_POST['recipeContent'])); 
    if (empty($recipeContent))  {
          $invalid_recipeContent = '<span class="error">Required</span>';
+         $invalid = '<span class="error">Content Required</span>';
          $valid = FALSE;
       }
 //type
       $type = mysqli_real_escape_string($conn, trim($_POST['type'])); 
    if (empty($type))  {
          $invalid_type = '<span class="error">Required</span>';
+         $invalid = '<span class="error">Type Required</span>';
          $valid = FALSE;
       }
 
 //image
    if (!empty($_FILES['recipeImage']['name'])) {
-      unlink("recipeImages/" . $_POST['imageName']);
-      $filetype = pathinfo($_FILES['recipeImage']['imageName'], PATHINFO_EXTENSION);
+      $imageName = $_FILES["recipeImage"]["name"];
+      // unlink("recipeImages/" . $_POST['imageName']);
+      $filetype = pathinfo($_FILES['recipeImage']['name'], PATHINFO_EXTENSION);
       if((($filetype == "gif") or ($filetype == "jpg") or ($filetype == "png")) and $_FILES['recipeImage']['size'] < 3000000) {
          if ($_FILES["recipeImage"]["error"] > 0)  {
+            $invalid = '<span class="error">Error Free Image Required</span>';
             $valid = FALSE;
             $fileError = $_FILES['recipeImage']['error'];
             $invalid_recipeImage= '<p class= "error"> Return Code: $fileError<br>';
@@ -96,40 +101,32 @@ if(filter_has_var(INPUT_POST, 'update'))  {
                      break;
                }//EO Switch
          } else {
-               $imageName = $_FILES["recipeImage"]["name"];
                $file = "recipeImages/$imageName";
                $fileInfo = "<p>Upload: $imageName<br>";
                $fileInfo .= "Type: " . $_FILES["recipeImage"]["type"] . "<br>";
                $fileInfo .= "Size: " . ($_FILES["recipeImage"]["size"] / 1024) . " KB<br>";
                $fileInfo .= "Temp File: " . $_FILES["recipeImage"]["tmp_name"] . "</p>";
-               
-               if (file_exists("$file"))  {
-                  $invalid_recipeImage = "<span class ='error'>$imageName already exists.</span>";
-                  $valid = FALSE; 
-               }else {
-                  if (move_uploaded_file($_FILES["recipeImage"]['tmp_name'], "$file")) {
-                     $fileInfo .= "<p class='text-success'>Your file has been uploaded. Stored as: $file</p>";
-
-                     $query = "UPDATE `recipe_table` SET `recipeImage` = '$recipeImageName' WHERE `recipeID` = $recipeID;";
-                     $result = mysqli_query($conn, $query);
-                     if (!$result)  {
-                        die(mysqli_error($conn));
-                     }else {
-                        $row_count = mysqli_affected_rows($conn);
-                        if($row_count == 1)  {
-                           $msg = "<p class='text-success'>Record Updated</p>";
-                        }else {$msg = '<p class="error">Image Update Failed</p>';}//EO row msg else
-                     }//EO row else
-                  }/*EO move IF*/ else {$invalid_recipeImage .='<p><span class="error">Your File could not be uploaded. ';}//EO invalid photo else
-               }//EO File exist else
+               if (move_uploaded_file($_FILES["recipeImage"]['tmp_name'], "$file")) {
+                  $fileInfo .= "<p class='text-success'>Your file has been uploaded. Stored as: $file</p>";
+                  $stmt = $conn->stmt_init();
+                  if ($stmt->prepare("UPDATE `recipe_table` SET `recipeImage` = ? WHERE `recipeID` = ?")) {
+                     $stmt->bind_param("si", $imageName, $recipeID);
+                     $stmt->execute();
+                     $stmt->close();
+                  }
+               } else {
+                  $invalid_recipeImage .='<p><span class="error">Your File could not be uploaded. ';
+               }//EO invalid photo else
             }//EO img if
       }/*EO file ext if*/ else {
             $invalid_recipeImage = '<span class= "error">Invalid File. This is not an image.</span>';
+            $invalid = '<span class="error">Invalid File</span>';
             $valid = FALSE;
          }//EO invalid file else
    }//EO empty files
-
    if($valid)  {
+      // echo $row_count;
+      // echo $query;
       if(filter_has_var(INPUT_POST, 'insert'))  {
          $stmt = $conn->stmt_init();
          if ($stmt->prepare("INSERT INTO `recipe_table`(`recipeID`, `recipeTitle`, `recipeContent`, `username`, `recipeImage`, DEFAULT, `type` ) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
@@ -138,22 +135,18 @@ if(filter_has_var(INPUT_POST, 'update'))  {
             $stmt->close();
          }
          $postID = mysqli_insert_id($conn);
-         header ("Location: recipe.php?recipeID=$recipeID");
-         exit();
+         // header ("Location: recipe.php?recipeID=$recipeID");
+         // exit();
       }
       if(filter_has_var(INPUT_POST, 'update'))  {
          $stmt = $conn->stmt_init();
-         if ($stmt->prepare("UPDATE `recipe_table` SET `recipeTitle`= ?, `recipeImage`= ?, `recipeContent`= ?, `type`= ? WHERE `recipeID` = ?")) {
-            $stmt->bind_param("ssss", $recipeTitle, $recipeImage, $recipeContent, $type);
+         if ($stmt->prepare("UPDATE `recipe_table` SET `recipeTitle`= ?, `recipeContent`= ?, `type`= ? WHERE `recipeID` = ?")) {
+            $stmt->bind_param("sssi", $recipeTitle, $recipeContent, $type, $recipeID);
             $stmt->execute();
             $stmt->close();
          }
-         header ("Location: recipe-handle.php?recipeID=$recipeID");
-         exit();
       }
     }//else    {
-   //    echo 'unable to process';//debug
-   // }
 }//EO process
 if ($recipeID) {
 	$stmt = $conn->stmt_init();
@@ -185,7 +178,7 @@ if ($edit) {
          </div>
          <p> Please select an image for your recipe.</p>
          <div class="form-group">
-            <input type="hidden" name="MAX_FILE_SIZE" value="300000">
+            <input type="hidden" name="MAX_FILE_SIZE" value="3000000">
                <label for="recipeImage">File to Uploads</label> $invalid_recipeImage
                <input type="file" name="recipeImage" id="recipeImage" class="mb-3 form">
          </div>
@@ -194,6 +187,7 @@ if ($edit) {
                <input type="hidden" name="recipeID" value="$recipeID">
                <input type="hidden" name="process">
                <input type="submit" name="update" value="Update Recipe" class="m-2 btn btn-outline-info">
+               <input type="submit" name="insert" value="Save New Recipe" class="m-2 btn btn-outline-info">
             </div>
       </form>
          <form action="recipe.php" method="post">
@@ -208,7 +202,7 @@ HERE;
    <main class="container ml-3">
       <div class="bg-light">
          <h2 class="d-flex justify-content-end mt-3" id="title">$recipeTitle</h2>
-          <p id="recipeImage" class="img-fluid mx-auto d-block m-2">$recipeImage</p> <!--uncomment this when you figure out the problem-->
+          <p id="recipeImage" class="img-fluid mx-auto d-block m-2"><img src="recipeImages/$recipeImage"></p> <!--uncomment this when you figure out the problem-->
          <!--<img id="recipeImage" class="img-fluid mx-auto d-block m-2" src="recipeImages/peppers.jpg">this is just to style and for show-->
          <p>$recipeContent</p>
          <div class="btn-group">
@@ -218,7 +212,7 @@ HERE;
                <input type="submit" name="edit" value="Edit Post" class="m-2 btn btn-info">
             </div>
          </form>
-         <form action="recipe.php" method="post">
+         <form action="Recipe.php" method="post">
             <div class="form-group">
                <input type="submit" name="cancel" value="Recipe List" class="m-2 btn btn-warning">
             </div>
@@ -283,4 +277,3 @@ HERE;
 HERE;
 }
 include '../admin/recipeTemplate.php';
-?>
