@@ -10,7 +10,7 @@ $pageContent = NULL;
 $recipeTitle  = $recipeImage = $recipeID = Null;
 
 // QUERY
-$sql = "SELECT `recipeTitle`, `recipeImage` FROM recipe_table";
+$sql = "SELECT `recipeID`, `recipeTitle`, `recipeImage` FROM recipe_table";
 $resultset = mysqli_query($conn, $sql) or die("database error:". mysqli_error($conn));			
 while( $record = mysqli_fetch_assoc($resultset) ) {
 }
@@ -38,9 +38,7 @@ HERE;
 HERE;
          }
          $selectPost .= <<<HERE
-                  </div>
-               </div>
-         </div>
+         </ul>
 HERE;
       } else {
          $selectPost = "<p>There are no recipes to see.</p>";
@@ -51,7 +49,14 @@ HERE;
       $selectPost = "<p>Recipe system is down now. Please try again later.</p>";
    }
 
-$pageContent .= $selectPost;
+   $pageContent .= <<<HERE
+   <main class="container ml-3">
+      <div class="bg-light">
+      <h2 class="d-flex justify-content-center mt-3" id="myRecipe">Recipe Gallery</h2>
+      $selectPost
+   </main>
+HERE;
+
 
 include '../admin/recipeTemplate.php';
 ?>

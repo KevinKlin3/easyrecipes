@@ -9,7 +9,7 @@ $recipeID = $recipeTitle = $recipeContent = $recipeImage = $type = $date = NULL;
 $invalid_recipeTitle = $invalid_recipeContent = $invalid_type = Null;
 $invalid_recipeImage = $fileInfo = $imageName = NULL;
 $pageContent = $msg = NULL;
-$valid = True;
+$valid = null;
 $logged_in = FALSE;
 
 
@@ -87,7 +87,7 @@ if(isset($_POST['submit'])) {
                         $row_count = mysqli_affected_rows($conn);
                         if($row_count == 1)  {
                            $recipeID = mysqli_insert_id($conn);
-                           header("Location: newRecipe.php");
+                           header("Location: recipe.php");
                            exit();
                            //$loggedin = TRUE; don't need this anymore will redirect
                            $msg = "<p>Record Inserted</p>";
@@ -159,15 +159,14 @@ $pageContent .= <<<HERE
          <label for="type">Type :</label>
          <input type="text" name="type" id="type" value="$type" placeholder="Breakfast, Lunch, Dinner, Dessert" class = "form-control" required>$invalid_type
       </div>
+      <input type="submit" name="submit" value="Submit" class= "btn btn-outline-success m-2">
+   </form>
       <div class="btn-group">
-
-         <input type="submit" name="submit" value="Submit" class= "btn btn-outline-success m-2">
-
          <input type="submit" name="reset" value="Reset" class= "btn btn-outline-warning  m-2">
          
-         <input type="submit" name="cancel" value="Back" class= "btn btn-outline-danger  m-2">
+         <input type="submit" name="cancel" value="Back" class= "btn btn-outline-danger  m-2" formaction="recipe.php">
       </div>
-   </form>
+
 </main>
 HERE;
 }//EO else form
