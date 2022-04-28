@@ -246,7 +246,7 @@ HERE;
          while($stmt->fetch()){ // loop through the result set to build our list
          $selectPost .= <<<HERE
             <li class="list-group-item align-items-stretch  m-2">
-            <h3 class="text-center mt-2">
+            <h3 class="text-center text-capitalize mt-2">
             <a class="text-decoration-none" href="recipe.php?recipeID=$recipeID">$recipeTitle</a>
             </h3>
             <img class="card-img m-2" id="imageThumbnail" src="recipeImages/$recipeImage">

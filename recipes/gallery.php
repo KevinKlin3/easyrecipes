@@ -32,10 +32,10 @@ HERE;
          while($stmt->fetch()){ // loop through the result set to build our list
          $selectPost .= <<<HERE
          <li class="list-group-item align-items-stretch shadow p-4 m-2 bg-light w-25">
-         <h3 class="text-center mt-2">
-         <a class="text-decoration-none"  id="g-text" href="recipe.php?recipeID=$recipeID">$recipeTitle</a>
+         <h3 class="text-center text-capitalize mt-2">
+         <a class="text-decoration-none" id="g-text" href="recipe.php?recipeID=$recipeID">$recipeTitle</a>
          </h3>
-         <img class="card-img m-2 mx-auto d-block" id="gallery-img" src="recipeImages/$recipeImage">
+         <img class="card-img mx-auto d-block" id="gallery-img" src="recipeImages/$recipeImage">
          </li>
 HERE;
          }// class="card-img-top shadow p-4 mb-4 bg-light" class="card p-4 mb-4"
