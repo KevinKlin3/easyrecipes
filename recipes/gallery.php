@@ -27,19 +27,22 @@ while( $record = mysqli_fetch_assoc($resultset) ) {
 
       if($classList_row_cnt > 0){ // make sure we have at least 1 record
          $selectPost = <<<HERE
-         <div class="container">
-            <div class="row">
-                  <div class="card bg-light m-2">
+
 HERE;
          while($stmt->fetch()){ // loop through the result set to build our list
          $selectPost .= <<<HERE
-         <img src="$recipeImage" class="card-img m-3" id="gallery-img">
-         <a href="recipe.php?recipeID=$recipeID" class="card-title text-dark">$recipeTitle</a>
+         <div class="d-flex flex-row">
+            <div class="card shadow p-4 mb-2 bg-light w-25">
+               <img class="card-img" id="gallery-img" src="recipeImages/$recipeImage">
+                  <h3 class="text-center mt-2">
+                     <a href="recipe.php?recipeID=$recipeID" class="text-decoration-none" id="g-text">$recipeTitle</a>
+                  </h3>
+            </div>
+         </div>
+         
 HERE;
-         }
-         $selectPost .= <<<HERE
-         </ul>
-HERE;
+         }// class="card-img-top shadow p-4 mb-4 bg-light" class="card p-4 mb-4"
+
       } else {
          $selectPost = "<p>There are no recipes to see.</p>";
       }
@@ -52,7 +55,7 @@ HERE;
    $pageContent .= <<<HERE
    <main class="container ml-3">
       <div class="bg-light">
-      <h2 class="d-flex justify-content-center mt-3" id="myRecipe">Recipe Gallery</h2>
+      <h2 class="d-flex justify-content-center mt-3 pb-4" id="myRecipe">Recipe Gallery</h2>
       $selectPost
    </main>
 HERE;
@@ -61,12 +64,4 @@ HERE;
 include '../admin/recipeTemplate.php';
 ?>
 
-<!-- <main class="container-fluid>
-<div class="card bg-dark text-white">
-   <img src="$recipeImage" class= "card-img">
-   <div class="card-img-overlay">
-      <h5 class="card-title">$recipeTitle</h5>
-   </div>
-</div>
-</main> -->
 
