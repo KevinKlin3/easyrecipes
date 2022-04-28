@@ -27,22 +27,21 @@ while( $record = mysqli_fetch_assoc($resultset) ) {
 
       if($classList_row_cnt > 0){ // make sure we have at least 1 record
          $selectPost = <<<HERE
-
+         <ul class="list-group list-group-horizontal">
 HERE;
          while($stmt->fetch()){ // loop through the result set to build our list
          $selectPost .= <<<HERE
-         <div class="d-flex flex-row">
-            <div class="card shadow p-4 mb-2 bg-light w-25">
-               <img class="card-img" id="gallery-img" src="recipeImages/$recipeImage">
-                  <h3 class="text-center mt-2">
-                     <a href="recipe.php?recipeID=$recipeID" class="text-decoration-none" id="g-text">$recipeTitle</a>
-                  </h3>
-            </div>
-         </div>
-         
+         <li class="list-group-item align-items-stretch shadow p-4 m-2 bg-light w-25">
+         <h3 class="text-center mt-2">
+         <a class="text-decoration-none"  id="g-text" href="recipe.php?recipeID=$recipeID">$recipeTitle</a>
+         </h3>
+         <img class="card-img m-2 mx-auto d-block" id="gallery-img" src="recipeImages/$recipeImage">
+         </li>
 HERE;
          }// class="card-img-top shadow p-4 mb-4 bg-light" class="card p-4 mb-4"
-
+         $selectPost .= <<<HERE
+         </ul>
+HERE;
       } else {
          $selectPost = "<p>There are no recipes to see.</p>";
       }

@@ -252,7 +252,7 @@ HERE;
          while($stmt->fetch()){ // loop through the result set to build our list
          $selectPost .= <<<HERE
             <li class="list-group-item">
-            // <img id="imageThumbnail" >
+             <img id="imageThumbnail" >
             <a href="recipe.php?recipeID=$recipeID">$recipeTitle</a>
             </li>
 HERE;

@@ -212,7 +212,7 @@ HERE;
                <input type="submit" name="edit" value="Edit Post" class="m-2 btn btn-info">
             </div>
          </form>
-         <form action="Recipe.php" method="post">
+         <form action="recipe.php" method="post">
             <div class="form-group">
                <input type="submit" name="cancel" value="Recipe List" class="m-2 btn btn-warning">
             </div>
@@ -232,22 +232,24 @@ HERE;
 // 	load default list
    $where = 1;
    $stmt = $conn->stmt_init();
-   if ($stmt->prepare("SELECT `recipeID`, `recipeTitle` FROM `recipe_table` WHERE ?")) {
+   if ($stmt->prepare("SELECT `recipeID`, `recipeTitle`, `recipeImage` FROM `recipe_table` WHERE ?")) {
       $stmt->bind_param("i", $where);
       $stmt->execute();
-      $stmt->bind_result($recipeID, $recipeTitle);
+      $stmt->bind_result($recipeID, $recipeTitle, $recipeImage);
       $stmt->store_result();
       $classList_row_cnt = $stmt->num_rows();
 
       if($classList_row_cnt > 0){ // make sure we have at least 1 record
          $selectPost = <<<HERE
-         <ul class="list-group">
+         <ul class="list-group list-group-horizontal">
 HERE;
          while($stmt->fetch()){ // loop through the result set to build our list
          $selectPost .= <<<HERE
-            <li class="list-group-item">
-            <img id="imageThumbnail"  src="recipeImages/peppers.jpg">
-            <a href="recipe.php?recipeID=$recipeID">$recipeTitle</a>
+            <li class="list-group-item align-items-stretch  m-2">
+            <h3 class="text-center mt-2">
+            <a class="text-decoration-none" href="recipe.php?recipeID=$recipeID">$recipeTitle</a>
+            </h3>
+            <img class="card-img m-2" id="imageThumbnail" src="recipeImages/$recipeImage">
             </li>
 HERE;
          }
@@ -266,7 +268,7 @@ HERE;
    $pageContent .= <<<HERE
    <main class="container ml-3">
       <div class="bg-light">
-      <h2 class="d-flex justify-content-center mt-3" id="myRecipe">My Recipes</h2>
+      <h2 class="d-flex justify-content-center mt-3 pb-2" id="myRecipe">My Recipes</h2>
       $selectPost
       <form action="newRecipe.php" method="post">
       <div class="form-group">

@@ -118,13 +118,13 @@ background-position: -72px 0;
   font-family: 'Satisfy', cursive;
 }
 #recipeImage  {
-  max-width: 20%;
+  max-width: 20v;
   max-height: auto;
 }
 
 #imageThumbnail {
-  max-width: 10%;
-  max-height: auto;
+  max-width: 20vh;
+  max-height: fit-content;
 }
 main  {
   top: 2rem;
