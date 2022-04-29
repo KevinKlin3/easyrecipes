@@ -5,23 +5,19 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Latest compiled and minified CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Latest compiled JavaScript -->
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> 
         <!--FontAwesome kit-->
           <script src="https://kit.fontawesome.com/c0e800fc4a.js" crossorigin="anonymous"></script>
         <!--External Style sheet-->
-          <link rel="stylesheet"  type="text/css" href="../admin/css/index.css">
+          <link rel="stylesheet"  type="text/css" href="index.css">
         <!-- favicon -->
-          <link rel="icon" type="image/png" sizes="32x32" href="../admin/images/logo.png">
+          <link rel="icon" type="image/png" sizes="32x32" href="images/logo.png">
         <!--header font from google-->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
-
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Satisfy&display=swap" rel="stylesheet">
     <body>
     <!--different header image other for all other pages-->
     <header class="hero2">
@@ -31,7 +27,7 @@
         <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
          <div class="container-fluid">
              <div class="fluid-img">
-                 <img  src="../admin/images/logo.png" class="navbar-brand" id="logo" alt="logo for page">
+                 <img  src="images/logo.png" class="navbar-brand" id="logo" alt="logo for page">
               </div>
            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
              <span class="navbar-toggler-icon"></span>
@@ -39,10 +35,10 @@
            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                <li class="nav-item">
-                 <a class="nav-link active" aria-current="page" href="../index.php">Home</a>
+                 <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                </li>
                <li class="nav-item">
-                 <a class="nav-link " href="../recipes/gallery.php">Recipe Gallery</a>
+                 <a class="nav-link " href="gallery.php">Recipe Gallery</a>
                </li>
                <li class="nav-item">
                  <a class="nav-link">About Us</a>

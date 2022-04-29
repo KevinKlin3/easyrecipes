@@ -13,13 +13,13 @@
             <script src="https://kit.fontawesome.com/c0e800fc4a.js" crossorigin="anonymous"></script>
             
         <!--External Style sheet-->
-            <link rel="stylesheet"  type="text/css" href="admin\css\index.css">
+            <link rel="stylesheet"  type="text/css" href="index.css">
         <!-- favicon -->
-            <link rel="icon" type="image/png" sizes="32x32" href="admin\images\logo.png">
-        <!--header font from google-->
+            <link rel="icon" type="image/png" sizes="32x32" href="images\logo.png">
+        <!--Fonts from google-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Satisfy&display=swap" rel="stylesheet">
     </head>
     <body>
       <header class="hero">
@@ -40,7 +40,7 @@
                     <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="recipes/gallery.php">Recipe Gallery</a>
+                    <a class="nav-link" href="gallery.php">Recipe Gallery</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link">About Us</a>
