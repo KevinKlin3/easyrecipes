@@ -127,17 +127,6 @@ if(filter_has_var(INPUT_POST, 'process'))  {
    if($valid)  {
       // echo $row_count;
       // echo $query;
-      if(filter_has_var(INPUT_POST, 'insert'))  {
-         $stmt = $conn->stmt_init();
-         if ($stmt->prepare("INSERT INTO `recipe_table`(`recipeID`, `recipeTitle`, `recipeContent`, `username`, `recipeImage`, DEFAULT, `type` ) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
-            $stmt->bind_param("issssis", $recipeID, $recipeTitle, $recipeContent, $username, $recipeImage, $date, $type);
-            $stmt->execute();
-            $stmt->close();
-         }
-         $postID = mysqli_insert_id($conn);
-         // header ("Location: recipe.php?recipeID=$recipeID");
-         // exit();
-      }
       if(filter_has_var(INPUT_POST, 'update'))  {
          $stmt = $conn->stmt_init();
          if ($stmt->prepare("UPDATE `recipe_table` SET `recipeTitle`= ?, `recipeContent`= ?, `type`= ? WHERE `recipeID` = ?")) {
@@ -174,7 +163,7 @@ if ($edit) {
          </div>
          <div class="form-group">
             <label for="recipeContent">Recipe:</label>
-               <textarea name="recipeContent" id="recipeContent" class="form-control" required>$recipeContent</textarea>$invalid_recipeContent
+               <textarea name="recipeContent" id="recipeContent" class="form-control" rows="5" required>$recipeContent</textarea>$invalid_recipeContent
          </div>
          <p> Please select an image for your recipe.</p>
          <div class="form-group">
@@ -187,7 +176,6 @@ if ($edit) {
                <input type="hidden" name="recipeID" value="$recipeID">
                <input type="hidden" name="process">
                <input type="submit" name="update" value="Update Recipe" class="m-2 btn btn-outline-info">
-               <input type="submit" name="insert" value="Save New Recipe" class="m-2 btn btn-outline-info">
             </div>
       </form>
          <form action="recipe.php" method="post">
@@ -201,26 +189,29 @@ HERE;
 	$pageContent .= <<<HERE
    <main class="container ml-3">
       <div class="bg-light">
-         <h2 class="d-flex justify-content-end mt-3" id="title">$recipeTitle</h2>
-          <p id="recipeImage" class="img-fluid mx-auto d-block m-2"><img src="recipeImages/$recipeImage"></p> <!--uncomment this when you figure out the problem-->
-         <!--<img id="recipeImage" class="img-fluid mx-auto d-block m-2" src="recipeImages/peppers.jpg">this is just to style and for show-->
-         <p>$recipeContent</p>
+         <h2 class="d-flex justify-content-end mt-3" id="title">
+            $recipeTitle
+         </h2>
+            <div class="img-fluid">
+               <img class="mx-auto d-block" id="recipeImage" src="recipeImages/$recipeImage">
+            </div>
+         <p class=" h5 m-3">$recipeContent</p>
          <div class="btn-group">
          <form action="recipe.php" method="post">
             <div class="form-group">
                <input type="hidden" name="recipeID" value="$recipeID">
-               <input type="submit" name="edit" value="Edit Post" class="m-2 btn btn-info">
+               <input type="submit" name="edit" value="Edit Post" class="m-2 btn btn-outline-info">
             </div>
          </form>
          <form action="recipe.php" method="post">
             <div class="form-group">
-               <input type="submit" name="cancel" value="Recipe List" class="m-2 btn btn-warning">
+               <input type="submit" name="cancel" value="Recipe List" class="m-2 btn btn-outline-warning">
             </div>
          </form>
          <form action="deleteverify.php" method="post">
             <div class="form-group">
                <input type="hidden" name="recipeID" value="$recipeID">
-               <input type="submit" name="delete" value="Delete" class="m-2 btn btn-danger">
+               <input type="submit" name="delete" value="Delete" class="m-2 btn btn-outline-danger">
             </div>
          </form>
          </div>

@@ -63,7 +63,9 @@ li a:hover{
    height: auto;
    background: #FDAC53;
 }
-
+label {
+  padding: .5rem;
+}
 /*sign in button @footer*/
 .button {
    margin: 10px;
@@ -118,7 +120,7 @@ background-position: -72px 0;
   font-family: 'Satisfy', cursive;
 }
 #recipeImage  {
-  max-width: 20v;
+  max-width: 20%;
   max-height: auto;
 }
 
