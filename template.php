@@ -29,7 +29,7 @@
         <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
             <div class="container-fluid">
                 <div class="fluid-img">
-                    <img  src="admin/images/logo.png" class="navbar-brand" id="logo" alt="logo for page">
+                    <img  src="images/logo.png" class="navbar-brand" id="logo" alt="logo for page">
                  </div>
                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNav" aria-controls="myNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

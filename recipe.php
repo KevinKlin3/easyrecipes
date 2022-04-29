@@ -1,6 +1,6 @@
 <?php
 
-include '../admin/config.php';
+include 'config.php';
 if(!$conn)  {
    echo "Failed to connect to MySQL: ". mysqli_connect_error();
 }
@@ -269,4 +269,4 @@ HERE;
    </main>
 HERE;
 }
-include '../admin/recipeTemplate.php';
+include 'recipeTemplate.php';

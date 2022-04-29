@@ -1,5 +1,5 @@
 <?php
-include '../admin/config.php';
+include 'config.php';
 if (!$conn) {
    echo "Failed to connect to MySQL: ".mysqli_connect_error($conn);
 }//test connection first
@@ -171,5 +171,5 @@ $pageContent .= <<<HERE
 HERE;
 }//EO else form
 $pageTitle = "New Recipe";
-include '../admin/recipeTemplate.php';
+include 'recipeTemplate.php';
 ?>
