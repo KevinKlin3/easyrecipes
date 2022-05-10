@@ -9,7 +9,7 @@ $pageTitle = "Home";
 
 $pageContent = <<<HERE
 <main class="container mt-1">
-  <h2 class="text-center" id="title">Our Team</h2>
+  <h2 class="text-center" id="recipeTitle">Our Team</h2>
   <div class="row">
     <div class="col-sm-4">
       <div class="card shadow p-4 m-2">
