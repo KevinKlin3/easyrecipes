@@ -24,12 +24,19 @@ $conn = mysqli_connect("localhost","root","","easy_recipe");//Local server
   
 //   debug_data(); // Comment this out to hide debug information
 
-//Authorization
+// authorized function
+function auth_admin($id) {
+	if(isset($_SESSION['roleID']) && $_SESSION['roleID'] >= $id) {
+		return TRUE;
+	} else {
+		return FALSE;
+	}
+}
 function auth_user() {
-   if(isset($_SESSION['userID'])) {
-      return TRUE;
-   } else {
-      return FALSE;
-   }
+	if(isset($_SESSION['userID'])) {
+		return TRUE;
+	} else {
+		return FALSE;
+	}
 }
 ?>
