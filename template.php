@@ -14,6 +14,7 @@
         
     <!--External Style sheet-->
     <link rel="stylesheet"  type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/recipe.css">
     <!-- favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="images\logo.png">
     <!--Fonts from google-->
@@ -23,8 +24,10 @@
   </head>
   <body>
     <header class="hero">
-      <h1>Easy Recipies</h1>
     </header>
+    <div>
+      <h1 class="header">Easy Recipies</h1>
+    </div>
     <!-- Nav Bar -->
     <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
         <div class="container-fluid">

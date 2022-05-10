@@ -21,8 +21,10 @@
           <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Satisfy&display=swap" rel="stylesheet">
   <body>
     <header class="hero">
-      <h1>Easy Recipies</h1>
     </header>
+    <div>
+      <h1 class="header">Easy Recipies</h1>
+    </div>
     <!-- Nav Bar -->
     <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
         <div class="container-fluid">

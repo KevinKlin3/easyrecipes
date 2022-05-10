@@ -165,5 +165,5 @@ $pageContent .= <<<HERE
 HERE;
 //EO else form
 $pageTitle = "New Recipe";
-include 'recipeTemplate.php';
+include 'template.php';
 ?>

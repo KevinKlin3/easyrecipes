@@ -65,5 +65,5 @@ $pageContent .= <<<HERE
 </section>
 HERE;
 
-include '../../admin/recipeTemplate.php';
+include 'template.php';
 ?>

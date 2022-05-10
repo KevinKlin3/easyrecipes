@@ -269,5 +269,5 @@ HERE;
    </main>
 HERE;
 }
-include 'recipeTemplate.php';
+include 'template.php';
 ?>
