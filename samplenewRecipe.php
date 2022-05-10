@@ -18,10 +18,10 @@ if(isset($_SESSION['userID'])) {
     $logged_in= FALSE; 
  }
 
-if(filter_has_var(INPUT_POST, 'edit'))  {
-   $edit = TRUE;
+if(filter_has_var(INPUT_POST, 'submit'))  {
+   $submit = TRUE;
 }  else  {
-   $edit = FALSE;
+   $submit = FALSE;
 }
 
 
@@ -33,20 +33,8 @@ if(filter_has_var(INPUT_POST, 'recipeID'))  {
    $recipeID = NULL;
 }
 
-//check delete Recipe posted
-if (filter_has_var(INPUT_POST, 'delete'))  {
-   $stmt = $conn->stmt_init();
-   if ($stmt->prepare("DELETE FROM `recipe_table` WHERE `recipeID` = ?")){ 
-      $stmt->bind_param("i", $recipeID);
-      $stmt->execute();
-      $stmt->close();
-   }
-   header ("recipe.php");//route back to home after deletion
-   exit();
-}
-
 //Recipe Title
-if(filter_has_var(INPUT_POST, 'process'))  {
+if(filter_has_var(INPUT_POST, 'insert'))  {
    $valid = TRUE;
    $recipeTitle = mysqli_real_escape_string($conn, trim($_POST['recipeTitle'])); 
    if (empty($recipeTitle))  {
@@ -127,10 +115,10 @@ if(filter_has_var(INPUT_POST, 'process'))  {
    if($valid)  {
       // echo $row_count;
       // echo $query;
-      if(filter_has_var(INPUT_POST, 'update'))  {
+      if(filter_has_var(INPUT_POST, 'insert'))  {
          $stmt = $conn->stmt_init();
-         if ($stmt->prepare("UPDATE `recipe_table` SET `recipeTitle`= ?, `recipeContent`= ?, `type`= ? WHERE `recipeID` = ?")) {
-            $stmt->bind_param("sssi", $recipeTitle, $recipeContent, $type, $recipeID);
+         if ($stmt->prepare("INSERT INTO `recipe_table`(DEFAULT, `recipeTitle`, `recipeContent`, `username`, `recipeImage`, `date`, `type` ) VALUES (?, ?, ?,?,?,?,?)")) {
+            $stmt->bind_param("issssis", $recipeID, $recipeTitle, $recipeContent, $username, $recipeImage, $date, $type);
             $stmt->execute();
             $stmt->close();
          }
@@ -147,12 +135,12 @@ if ($recipeID) {
       $stmt->close();
    }
 }
-if ($edit) {
+if ($submit) {
    $pageContent .= <<<HERE
    <main class="container ml-3 mt-1 bg-light">
       $msg
       <h2 id="myRecipe" class="d-flex justify-content-center">Edit your Recipe Here</h2>
-      <form enctype="multipart/form-data" action="recipe.php" method="post">
+      <form enctype="multipart/form-data" action="samplenewrecipe.php" method="post">
          <div class="form-group">
             <label for="recipeTitle">Recipe Title</label>
                <input type="text" name="recipeTitle" id="recipeTitle" value="$recipeTitle" placeholder="Recipe Title" class ="form-control" required>$invalid_recipeTitle
@@ -173,9 +161,8 @@ if ($edit) {
          </div>
          <div class= "btn-group">
             <div class="form-group">
-               <input type="hidden" name="recipeID" value="$recipeID">
-               <input type="hidden" name="process">
-               <input type="submit" name="update" value="Update Recipe" class="m-2 btn btn-outline-info">
+               <input type="hidden" name="insert">
+               <input type="submit" name="submit" value="Save" class="m-2 btn btn-outline-success">
             </div>
       </form>
          <form action="recipe.php" method="post">
@@ -185,8 +172,8 @@ if ($edit) {
          </div>
    </main>
 HERE;
-} elseif ($recipeID) {
-	$pageContent .= <<<HERE
+} else ($recipeID) {
+	$pageContent .=<<<HERE
    <main class="container ml-3">
       <div class="bg-light">
          <h2 class="d-flex justify-content-end mt-3" id="title">
@@ -197,13 +184,13 @@ HERE;
             </div>
          <p class=" h5 m-3">$recipeContent</p>
          <div class="btn-group">
-         <form action="recipe.php" method="post">
+         <form action="samplenewrecipe.php" method="post">
             <div class="form-group">
                <input type="hidden" name="recipeID" value="$recipeID">
                <input type="submit" name="edit" value="Edit Post" class="m-2 btn btn-outline-info">
             </div>
          </form>
-         <form action="recipe.php" method="post">
+         <form action="samplenewrecipe.php" method="post">
             <div class="form-group">
                <input type="submit" name="cancel" value="Recipe List" class="m-2 btn btn-outline-warning">
             </div>
@@ -218,56 +205,6 @@ HERE;
       </div>
    </main>
 HERE;
-} else {
-// 	select data from db
-// 	load default list
-   $where = 1;
-   $stmt = $conn->stmt_init();
-   if ($stmt->prepare("SELECT `recipeID`, `recipeTitle`, `recipeImage` FROM `recipe_table` WHERE ?")) {
-      $stmt->bind_param("i", $where);
-      $stmt->execute();
-      $stmt->bind_result($recipeID, $recipeTitle, $recipeImage);
-      $stmt->store_result();
-      $classList_row_cnt = $stmt->num_rows();
-
-      if($classList_row_cnt > 0){ // make sure we have at least 1 record
-         $selectPost = <<<HERE
-         <ul class="list-group list-group-horizontal">
-HERE;
-         while($stmt->fetch()){ // loop through the result set to build our list
-         $selectPost .= <<<HERE
-            <li class="list-group-item align-items-stretch  m-2">
-            <h3 class="text-center text-capitalize mt-2">
-            <a class="text-decoration-none" href="recipe.php?recipeID=$recipeID">$recipeTitle</a>
-            </h3>
-            <img class="card-img m-2" id="imageThumbnail" src="recipeImages/$recipeImage">
-            </li>
-HERE;
-         }
-         $selectPost .= <<<HERE
-         </ul>
-HERE;
-      } else {
-         $selectPost = "<p>There are no recipes to see.</p>";
-      }
-      $stmt->free_result();
-      $stmt->close();
-   } else {
-      $selectPost = "<p>Recipe system is down now. Please try again later.</p>";
-   }
-
-   $pageContent .= <<<HERE
-   <main class="container ml-3">
-      <div class="bg-light">
-      <h2 class="d-flex justify-content-center mt-3 pb-2" id="myRecipe">My Recipes</h2>
-      $selectPost
-      <form action="newRecipe.php" method="post">
-      <div class="form-group">
-         <input type="submit" name="insert" value="Create New Recipe" class="m-2 btn btn-success">
-      </div>
-      </form>
-   </main>
-HERE;
 }
-include 'recipeTemplate.php';
+include 'template.php';
 ?>
