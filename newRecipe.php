@@ -99,37 +99,36 @@ if(isset($_POST['submit'])) {
          }//EO invalid file else
    }//EO empty files
 }
-// if($logged_in) {
-//    $query = "SELECT * FROM `recipe_table` WHERE `recipeID` = $recipeID;";
-//    $result = mysqli_query($conn, $query);
-//    if (!$result)  {
-//       die(mysqli_error($conn));
-//    }//EO if !result
-//    if ($row = mysqli_fetch_assoc($result))   {
-//       $recipeTitle = $row['recipeTitle'];
-//       $recipeImage = $row['recipeImage'];
-//       $recipeConent = $row['recipeConent'];
-//       $username = $row['username'];
-//       $date = $row['date'];
-//       $type = $row['type'];
-//    }/*EO if results*/ else {
-//       $msg = "Sorry, We couldn't find your recipe.";
-//    }//EO else query
-//    $pageContent .= <<<HERE
-//    <content class="container-fluid">
-//    <h2 class='recipe-title'>$recipeTitle</h2>
-//    <div class="img-fluid">
-//       <div> $recipeImage</div>
-//    </div>
-//    <h3>$username</h3>
-//    <p>$recipeContent</p>
-// </content>
-// HERE;
-// }/*EO if logged in*/else {
-//    if(isset($_GET['action'])) {
-//       $msg = "<p class='error'>Record " . $_GET['action'] ."</p>";
-//    }
-if($)
+ if($logged_in) {
+    $query = "SELECT * FROM `recipe_table` WHERE `recipeID` = $recipeID;";
+    $result = mysqli_query($conn, $query);
+    if (!$result)  {
+       die(mysqli_error($conn));
+    }//EO if !result
+    if ($row = mysqli_fetch_assoc($result))   {
+       $recipeTitle = $row['recipeTitle'];
+       $recipeImage = $row['recipeImage'];
+       $recipeConent = $row['recipeConent'];
+       $date = $row['date'];
+       $type = $row['type'];
+    }/*EO if results*/ else {
+       $msg = "Sorry, We couldn't find your recipe.";
+    }//EO else query
+    $pageContent .= <<<HERE
+    <content class="container-fluid">
+   <h2 class='recipe-title'>$recipeTitle</h2>
+    <div class="img-fluid">
+       <div> $recipeImage</div>
+    </div>
+    <p>$recipeContent</p>
+ </content>
+ HERE;
+ }/*EO if logged in*/else {
+    if(isset($_GET['action'])) {
+       $msg = "<p class='error'>Record " . $_GET['action'] ."</p>";
+    }
+   }
+if('submit')
 $pageContent .= <<<HERE
 <main class="container bg-light ml-3 mt-1">
    <h2 id="myRecipe" class="d-flex justify-content-center">Add a New Recipe Here</h2>
@@ -153,14 +152,24 @@ $pageContent .= <<<HERE
          <label for="type">Type :</label>
          <input type="text" name="type" id="type" value="$type" placeholder="Breakfast, Lunch, Dinner, Dessert" class = "form-control" required>$invalid_type
       </div>
-      <input type="submit" name="submit" value="Submit" class= "btn btn-outline-success m-2">
    </form>
       <div class="btn-group">
-         <input type="submit" name="reset" value="Reset" class= "btn btn-outline-warning  m-2">
-         
-         <input type="submit" name="cancel" value="Back" class= "btn btn-outline-danger  m-2" formaction="recipe.php">
+         <div class="form-group">
+            <form action="newRecipe.php" method="post">
+               <input type="submit" name="submit" value="Submit" class= "btn btn-outline-success m-2">
+            </form>
+         </div>  
+         <div class="form-group">
+            <form action="newRecipe.php" method="post">
+               <input type="submit" name="reset" value="Reset" class= "btn btn-outline-warning  m-2">
+            </form>
+         </div>
+         <div class="form-group">
+            <form action="recipe.php" method="post">
+               <input type="submit" name="cancel" value="Back" class= "btn btn-outline-danger  m-2">
+            </form>
+         </div>
       </div>
-
 </main>
 HERE;
 //EO else form

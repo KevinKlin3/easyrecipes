@@ -139,10 +139,10 @@ if(filter_has_var(INPUT_POST, 'process'))  {
 }//EO process
 if ($recipeID) {
 	$stmt = $conn->stmt_init();
-   if ($stmt->prepare("SELECT `recipeTitle`, `recipeContent`, `username`, `recipeImage`, `date`, `type` FROM `recipe_table` WHERE `recipeID` = ?")) {
+   if ($stmt->prepare("SELECT `recipeTitle`, `recipeContent`, `recipeImage`, `date`, `type` FROM `recipe_table` WHERE `recipeID` = ?")) {
       $stmt->bind_param("i", $recipeID);
       $stmt->execute();
-      $stmt->bind_result($recipeTitle, $recipeContent, $username, $recipeImage, $date, $type);
+      $stmt->bind_result($recipeTitle, $recipeContent, $recipeImage, $date, $type);
       $stmt->fetch();
       $stmt->close();
    }
