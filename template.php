@@ -37,16 +37,16 @@
               <div class="collapse navbar-collapse" id="myNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                    <a class="nav-link text-dark" aria-current="page" href="index.php">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="gallery.php">Recipe Gallery</a>
+                    <a class="nav-link text-dark" href="gallery.php">Recipe Gallery</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link">About Us</a>
+                    <a class="nav-link text-dark" href="about.php">About Us</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link">Contact us</a>
+                    <a class="nav-link text-dark" href="contact.php">Contact us</a>
                   </li>
                 </ul>
                 <form class="d-flex">
@@ -57,15 +57,32 @@
             </div>
           </nav>
         <!-- End of NavBar -->
-        <!--add burger-->
 <?php
 print $pageContent;
 ?>
 <hr>
     <footer class="container-fluid">
-                <!-- sign in -->
-            <!--<?php print $loginButton ?>-->
-            <a class="button" href="#">Sign In</a>
+    <!-- sign in -->
+      <?php
+        $loginButton = NULL;
+        if (auth_user()) {
+          $loginButton = <<<HERE
+            <form class="form-inline" action="index.php" method="post">
+              <button class="btn btn-outline-primary btn-sm mt-3" name="logout" type="submit">Log Out</button>
+            </form> 
+            <form class="form-inline" action="profile.php" method="post" >
+              <button class="btn btn-success btn-sm mt-3" type="submit">Profile</button>
+            </form>
+          HERE;
+        } else {
+          $loginButton = <<<HERE
+            <form class="form-inline" action="login.php" method="post" >
+              <button class="btn btn-outline-primary btn-sm mt-3" type="submit">Sign In</button>
+            </form>
+          HERE;
+              }
+        print $loginButton;
+      ?>
     <p> Developed by Yordin Kirk, Semhar Bire, Damaris Gonzalez</p>
     <a href="https://www.youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
     <a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram-square"></i></a>

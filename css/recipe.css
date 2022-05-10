@@ -1,0 +1,32 @@
+
+#gallery-img {
+   max-width: 50%;
+   margin-left: 25%;
+ }
+ #g-text {
+   color:#8d9440;
+   font-weight: bold;
+   font-family: 'Indie Flower', cursive;
+   font-size: 30px;
+ }
+ #title {
+   background-color: #00758f;
+   color:wheat;
+   font-size: 8vh;
+   font-family: 'Satisfy', cursive;
+ }
+ #myRecipe {
+   padding-left: 5vh;
+   color:#00758f;
+   font-size: 8vh;
+   font-family: 'Satisfy', cursive;
+ }
+ #recipeImage  {
+   max-width: 20%;
+   max-height: auto;
+ }
+ 
+ #imageThumbnail {
+   max-width: 20vh;
+   max-height: fit-content;
+ }

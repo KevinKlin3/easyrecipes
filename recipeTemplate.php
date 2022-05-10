@@ -12,6 +12,7 @@
           <script src="https://kit.fontawesome.com/c0e800fc4a.js" crossorigin="anonymous"></script>
         <!--External Style sheet-->
           <link rel="stylesheet"  type="text/css" href="css/index.css">
+          <link rel="stylesheet" type="text/css" href="css/recipe.css">
         <!-- favicon -->
           <link rel="icon" type="image/png" sizes="32x32" href="images/logo.png">
         <!--header font from google-->
