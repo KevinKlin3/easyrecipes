@@ -8,13 +8,13 @@ body {
   background: #FDAC53;
 } 
 .hero {
-  background-image: url('images/hero.png');
+  background-image: url('../images/hero.png');
   max-width: 100vw;
   height: 35vw;
   object-fit: contain;
 }
 .hero2 {
-  background-image: url('images/hero.png');
+  background-image: url('../images/hero.png');
   max-width: 100vw;
   height:20vw;
   object-fit:contain;

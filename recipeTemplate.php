@@ -19,57 +19,74 @@
           <link rel="preconnect" href="https://fonts.googleapis.com">
           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
           <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Satisfy&display=swap" rel="stylesheet">
-    <body>
-    <!--different header image other for all other pages-->
-    <header class="hero2">
-        <h1>Easy Recipies</h1>
-      </header>
-        <!-- Nav Bar -->
-        <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
-         <div class="container-fluid">
-             <div class="fluid-img">
-                 <img  src="images/logo.png" class="navbar-brand" id="logo" alt="logo for page">
-              </div>
-           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-             <span class="navbar-toggler-icon"></span>
-           </button>
-           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-               <li class="nav-item">
-                 <a class="nav-link active" aria-current="page" href="index.php">Home</a>
-               </li>
-               <li class="nav-item">
-                 <a class="nav-link " href="gallery.php">Recipe Gallery</a>
-               </li>
-               <li class="nav-item">
-                 <a class="nav-link">About Us</a>
-               </li>
-               <li class="nav-item">
-                 <a class="nav-link">Contact us</a>
-               </li>
-             </ul>
-             <form class="d-flex">
-               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-               <button id="button" class="btn btn-outline-primary btn-sm" type="submit" >Search</button>
-             </form>
-           </div>
-         </div>
-       </nav>
-        <!-- End of NavBar -->
-        <!--add burger-->
+  <body>
+    <header class="hero">
+      <h1>Easy Recipies</h1>
+    </header>
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
+        <div class="container-fluid">
+          <div class="fluid-img">
+            <img  src="images/logo.png" class="navbar-brand" id="logo" alt="logo for page">
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNav" aria-controls="myNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          <div class="collapse navbar-collapse" id="myNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link text-dark" aria-current="page" href="index.php">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-dark" href="gallery.php">Recipe Gallery</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-dark" href="about.php">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-dark" href="contact.php">Contact us</a>
+              </li>
+            </ul>
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button id="button" class="btn btn-outline-primary btn-sm" type="submit" >Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      <!-- End of NavBar -->
 <?php
 print $pageContent;
 ?>
 <hr>
     <footer class="container-fluid">
-                <!-- sign in -->
-            <a class="button" href="#">Sign In</a>
-    <p> Developed by Yordin Kirk, Semhar Bire, Damaris Gonzalez</p>
-    <p>© BHC Web Dev 2022</p>
-    <a href="https://www.youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-    <a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram-square"></i></a>
-    <a href="https://www.pinterest.com" target="_blank"><i class="fa-brands fa-pinterest"></i></a>
-    <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook-square"></i></a>
+      <!-- sign in -->
+      <?php
+        $loginButton = NULL;
+        if (auth_user()) {
+          $loginButton = <<<HERE
+            <form class="form-inline" action="index.php" method="post">
+              <button class="btn btn-outline-primary btn-sm mt-3" name="logout" type="submit">Log Out</button>
+            </form> 
+            <form class="form-inline" action="profile.php" method="post" >
+              <button class="btn btn-success btn-sm mt-3" type="submit">Profile</button>
+            </form>
+          HERE;
+        } else {
+          $loginButton = <<<HERE
+            <form class="form-inline" action="login.php" method="post" >
+              <button class="btn btn-outline-primary btn-sm mt-3" type="submit">Sign In</button>
+            </form>
+          HERE;
+              }
+        print $loginButton;
+      ?>
+      <p> Developed by Yordin Kirk, Semhar Bire, Damaris Gonzalez</p>
+      <a href="https://www.youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+      <a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram-square"></i></a>
+      <a href="https://www.pinterest.com" target="_blank"><i class="fa-brands fa-pinterest"></i></a>
+      <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook-square"></i></a>
+      <p>© BHC Web Dev 2022</p>
     </footer>
-</body>
+  </body>
 </html>

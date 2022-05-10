@@ -13,11 +13,11 @@ $pageContent .= <<<HERE
       </div>
       <div class="col">
          <h2>Why Easy Recipes?</h2>
-            <h4> Did you know?</h4>
+            <h3> Did you know?</h4>
                <div>
                   <img src="images/write.jpg" class="fakeimg" alt="garlic and tomatoes surrounding writing pad">
                </div>
-         <h5>This is a Comprehensive Project Class Web Page</h5>
+         <h4>This is a Comprehensive Project Class Web Page</h5>
             <p>This is a project blog style page that will have three wonderful women working together to create a functional web page. Through perserverance and the same vision, We will be creating a working recipe page that will have the ability to create a profile, log in and out, and to even add actual content like recipes."
             </p>
          <br>
