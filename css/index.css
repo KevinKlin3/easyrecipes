@@ -36,14 +36,12 @@ nav {
   background-color: #FDAC53;
   color: black;
 }
-
 #logo{
   display: flex;
   max-width: 50px;
   max-height: 70px;
   float: left;
 }
-
 li a:hover{
   background-color: #00758f;
   color: white;
@@ -53,17 +51,15 @@ li a:hover{
   background: -webkit-linear-gradient(to right, rgba(0, 117, 143, 1), rgba(95, 96, 99, 1));
   background: linear-gradient(to right, rgba(0, 117, 143, 1), rgba(95, 96, 99, 1));
 }
-
- .fakeimg {
-   border-radius: 25px;
-   width: 50%;
-   height: auto;
-   background: #FDAC53;
+.fakeimg {
+  border-radius: 25px;
+  width: 50%;
+  height: auto;
+  background: #FDAC53;
 }
 label {
   padding: .5rem;
 }
-/*sign in button @footer*/
 footer {
   left: 0;
   bottom: 0;
@@ -75,7 +71,6 @@ footer {
 footer a {
 color: white;
 }
-
 /* favicons*/
 i {
 display: inline-block;
@@ -86,7 +81,6 @@ background-position: -72px 0;
 main  {
   top: 2rem;
 }
-
 
 /* large screens */
 @media screen and (max-width: 1080px) {
