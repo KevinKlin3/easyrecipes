@@ -5,7 +5,7 @@ if(!$conn)  {
 }
 
 $pageTitle = "Contact Us";
-$pageContent = <<<HERE
+$pageContent =<<<HERE
 <main class="container-fluid bg-light m-1">
   <h2 class="text-center mt-2" id="recipeTitle">Contact Form</h2>
   <div class="container">

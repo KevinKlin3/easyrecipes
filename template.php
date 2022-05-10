@@ -86,7 +86,7 @@ print $pageContent;
               }
         print $loginButton;
       ?>
-      <p> Developed by Yordin Kirk, Semhar Bire, Damaris Gonzalez</p>
+      <p>Developed by Yordin Kirk, Semhar Bire, Damaris Gonzalez</p>
       <a href="https://www.youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
       <a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram-square"></i></a>
       <a href="https://www.pinterest.com" target="_blank"><i class="fa-brands fa-pinterest"></i></a>
