@@ -6,11 +6,8 @@ if (!$conn){
 }
 
 $pageTitle = "Login";
-$invalid_user = NULL;
-$invalid_password = NULL;
-$message = NULL;
-$pageContent = NULL;
-$username =NULL;
+$invalid_user =$invalid_password = NULL;
+$message = $pageContent = $username =NULL;
 
 if (filter_has_var (INPUT_POST, 'login')){
 	$username = strip_tags (filter_input (INPUT_POST, 'username'));
@@ -79,7 +76,7 @@ HERE;
 }
 $pageContent .= <<<HERE
 	<main class="container p-5 my-5 bg-light text-secondary rounded">
-		<h2 id="title">Please Log In</h2>
+		<h2>Please Log In</h2>
 		$message
 		<form action ="login.php" method ="post">
 			<div class="mb-3 mt-3">

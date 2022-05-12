@@ -24,7 +24,7 @@
   <body>
     <header class="hero">
     </header>
-    <div>
+    <div class="d-flex justify-content-center">
       <h1 class="header">Easy Recipies</h1>
     </div>
     <!-- Nav Bar -->

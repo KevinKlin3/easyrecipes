@@ -5,25 +5,30 @@ if(!$conn)  {
    echo "Failed to connect to MySQL: ". mysqli_connect_error();
 }
 
+$pageTitle = "My recipes";
+$recipeID = $recipeTitle = $recipeContent = $image = $type = $date = NULL;
+$invalid_recipeTitle = $invalid_recipeContent = $invalid_type = $invalid_image = Null;
+$pageContent = $msg =  $valid =  NULL;
+
 if(auth_user()) {
    $userID = $_SESSION['userID'];
-   $buttons .=<<<HERE
-   <div class="col-sm-12 btn-group">
+   $buttons =<<<HERE
+   <div class="btn-group">
    <form action="recipe.php" method="post">
       <div class="form-group">
          <input type="hidden" name="recipeID" value="$recipeID">
-         <input type="submit" name="edit" value="Edit Post" class="m-2 btn btn-outline-info">
+         <input type="submit" name="edit" value="Edit Post" class="m-2">
       </div>
    </form>
    <form action="recipe.php" method="post">
       <div class="form-group">
-         <input type="submit" name="cancel" value="Recipe List" class="m-2 btn btn-outline-warning">
+         <input type="submit" name="cancel" value="Recipe List" class="m-2">
       </div>
    </form>
    <form action="deleteverify.php" method="post">
       <div class="form-group">
          <input type="hidden" name="recipeID" value="$recipeID">
-         <input type="submit" name="delete" value="Delete" class="m-2 btn btn-outline-danger">
+         <input type="submit" name="delete" value="Delete" class="m-2">
       </div>
    </form>
 </div>
@@ -31,11 +36,6 @@ HERE;
 }else {
    $buttons = NULL;
 }
-
-$pageTitle = "My recipes";
-$recipeTitle = $recipeContent = $image = $type = $date = NULL;
-$invalid_recipeTitle = $invalid_recipeContent = $invalid_type = $invalid_image = Null;
-$pageContent = $msg =  $valid =  NULL;
 
 if(filter_has_var(INPUT_POST, 'recipeID'))  {
    $recipeID = filter_input(INPUT_POST, 'recipeID');
@@ -210,7 +210,7 @@ if (!empty($_FILES['image']['name'])) {
             <p> Please select an image for your recipe.</p>
             <div class="form-group">
                <input type="hidden" name="MAX_FILE_SIZE" value="3000000">
-                  <label for="recipeImage">File to Uploads</label> $invalid_recipeImage
+                  <label for="recipeImage">File to Uploads</label> $invalid_image
                   <input type="file" name="recipeImage" id="recipeImage" class="mb-3 form">
             </div>
             <div class= "btn-group">
@@ -228,19 +228,19 @@ if (!empty($_FILES['image']['name'])) {
 HERE;
 } elseif ($recipeID) {
 	$pageContent .= <<<HERE
-   <main class="container ml-3">
+   <main class="container-fluid ml-3">
    $invalid_image
       <div class="row bg-light">
-         <div class="col-sm-6">
-            <img class="mx-auto d-block mt-2" id="image" src="images/$image">
+         <div class="col-sm">
+            <img class="mx-auto d-block img-fluid mt-2" id="image" src="images/$image">
          </div>
-         <div class="col-sm-6">
+         <div class="col-sm">
             <h2 class="title mt-2" id="myRecipe">
                $recipeTitle
             </h2>
             <p>$recipeContent</p>
+            $buttons
          </div>
-         $buttons
       </div>
    </main>
 HERE;
