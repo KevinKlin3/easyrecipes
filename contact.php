@@ -45,7 +45,9 @@ $pageContent =<<<HERE
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+        <a class="btn btn-outline-info href="index.php">Home</a>
+        <a class="btn btn-outline-success" href="about.php"> Back to About </a>	
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Back to Form</button>
       </div>
 
     </div>
