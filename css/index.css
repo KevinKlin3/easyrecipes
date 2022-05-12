@@ -170,9 +170,6 @@ input[type=submit]:hover {
     flex-wrap: wrap;
     height:fit-content;}
 }
- #title  {
-  padding-left: 16%;
-} 
 
 /* Medium screens and under */
 @media screen and (max-width: 600px) {
