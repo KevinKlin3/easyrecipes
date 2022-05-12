@@ -116,7 +116,7 @@ if(isset($_POST['submit'])) {
     }//EO else query
     $pageContent .= <<<HERE
     <content class="container-fluid">
-   <h2 class='recipe-title'>$recipeTitle</h2>
+   <h2 id="myRecipe">$recipeTitle</h2>
     <div class="img-fluid">
        <div> $recipeImage</div>
     </div>
@@ -135,7 +135,7 @@ $pageContent .= <<<HERE
    <form action="newRecipe.php" enctype="multipart/form-data" method = "post">
       <div class="form-group">
          <label for="recipeTitle">Recipe Title</label>
-         <input type="text" name="recipeTitle" id="recipeTitle" value="$recipeTitle" placeholder="Recipe Title" class ="form-control" required>$invalid_recipeTitle
+         <input type="text" name="recipeTitle" id="title" value="$recipeTitle" placeholder="Recipe Title" class ="form-control" required>$invalid_recipeTitle
       </div>
       <h5>Please select an image for your recipe.</h5>
       <div class="form-group">
@@ -172,7 +172,5 @@ $pageContent .= <<<HERE
       </div>
 </main>
 HERE;
-//EO else form
-$pageTitle = "New Recipe";
 include 'template.php';
 ?>

@@ -11,19 +11,13 @@ $invalid_recipeTitle = $invalid_recipeContent = $invalid_type = $invalid_recipeI
 $pageContent = $msg =  $valid =  NULL;
 
 
-if(isset($_SESSION['userID'])) {
-    $userID = $_SESSION['userID'];
-    $logged_in = TRUE;
- }else {
-    $logged_in= FALSE; 
- }
-
-if(filter_has_var(INPUT_POST, 'edit'))  {
-   $edit = TRUE;
-}  else  {
-   $edit = FALSE;
+if(filter_has_var(INPUT_POST, 'recipeID'))  {
+   $recipeID = filter_input(INPUT_POST, 'recipeID');
+}elseif(filter_has_var(INPUT_GET, 'recipeID'))  {
+   $recipeID = filter_input(INPUT_GET, 'recipeID');
+}else {
+   $recipeID = NULL;
 }
-
 
 if(filter_has_var(INPUT_POST, 'recipeID'))  {
    $recipeID = filter_input(INPUT_POST, 'recipeID');
@@ -155,7 +149,7 @@ if ($edit) {
       <form enctype="multipart/form-data" action="recipe.php" method="post">
          <div class="form-group">
             <label for="recipeTitle">Recipe Title</label>
-               <input type="text" name="recipeTitle" id="recipeTitle" value="$recipeTitle" placeholder="Recipe Title" class ="form-control" required>$invalid_recipeTitle
+               <input type="text" name="recipeTitle" id="title" value="$recipeTitle" placeholder="Recipe Title" class ="form-control" required>$invalid_recipeTitle
          </div>
          <div class="form-group">
             <label for="type">Category</label>
@@ -174,7 +168,6 @@ if ($edit) {
          <div class= "btn-group">
             <div class="form-group">
                <input type="hidden" name="recipeID" value="$recipeID">
-               <input type="hidden" name="process">
                <input type="submit" name="update" value="Update Recipe" class="m-2 btn btn-outline-info">
             </div>
       </form>
@@ -189,7 +182,7 @@ HERE;
 	$pageContent .= <<<HERE
    <main class="container ml-3">
       <div class="bg-light">
-         <h2 class="d-flex justify-content-end mt-3" id="title">
+         <h2 id="myRecipe" class="d-flex justify-content-end mt-3">
             $recipeTitle
          </h2>
             <div class="img-fluid">

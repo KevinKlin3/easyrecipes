@@ -14,11 +14,27 @@ body {
   height: 25vh;
   object-fit: contain;
 }
+main h1{
+  font-family: "Satisfy", cursive;
+  background-color: #00758f;
+  color:wheat;
+  font-size: 8vh;
+}
 #name {
   font-family: "Satisfy", cursive;
   color: #00758f;
-  font-size: 5vh;
+  font-size: 6vh;
 }
+#ptitle  {
+font-size: 18px;
+font-weight: 700;
+}
+h2{
+  font-family: "Satisfy", cursive;
+  color: #00758f;
+  font-size: 4vh;
+}
+
 div h1.header {
   /* padding-top: 5vh; */
   margin: auto;
@@ -51,19 +67,12 @@ li a:hover{
   background: -webkit-linear-gradient(to right, rgba(0, 117, 143, 1), rgba(95, 96, 99, 1));
   background: linear-gradient(to right, rgba(0, 117, 143, 1), rgba(95, 96, 99, 1));
 }
-.fakeimg {
-  border-radius: 25px;
-  width: 50%;
-  height: auto;
-  background: #FDAC53;
-}
+
 label {
   padding: .5rem;
 }
 footer {
-  left: 0;
-  bottom: 0;
-  width: 100%;
+  max-width: 100%;
   background-color: #FDAC53;
   color: #000000;
   text-align: center;
@@ -77,11 +86,44 @@ display: inline-block;
 width: 72px;
 height: 72px;
 background-position: -72px 0;
+padding-top: 15px;
 }
 main  {
   top: 2rem;
 }
+/* recipe */
 
+#gallery-img {
+  max-width: 50%;
+  margin-left: 25%;
+}
+#g-text {
+  color:#8d9440;
+  font-weight: bold;
+  font-family: 'Indie Flower', cursive;
+  font-size: 30px;
+}
+/* #recipe-title {
+  background-color: #00758f;
+  color:wheat;
+  font-size: 8vh;
+  font-family: 'Satisfy', cursive;
+} */
+#myRecipe {
+ background-color: #00758f;
+ color:wheat;
+ font-size: 8vh;
+ font-family: 'Satisfy', cursive;
+}
+#recipeImage  {
+  max-width: 20%;
+  max-height: auto;
+}
+
+#imageThumbnail {
+  max-width: 20vh;
+  max-height: fit-content;
+}
 /* Semhar */
 .about-section {
   padding: 50px;
@@ -128,9 +170,9 @@ input[type=submit]:hover {
     flex-wrap: wrap;
     height:fit-content;}
 }
-/* #title  {
+ #title  {
   padding-left: 16%;
-} */
+} 
 
 /* Medium screens and under */
 @media screen and (max-width: 600px) {

@@ -1,13 +1,10 @@
 <?php
 include 'config.php';
-if(!$conn)  {
-   echo "Failed to connect to MySQL: ". mysqli_connect_error();
-}
 
 $pageTitle = "Contact Us";
 $pageContent =<<<HERE
 <main class="container-fluid bg-light m-1">
-  <h2 class="text-center mt-2" id="recipeTitle">Contact Form</h2>
+  <h1 class="text-center mt-2" id="recipeTitle">Contact Form</h1>
   <div class="container">
     <form action="thankyou.php">
       <label for="fname">First Name</label>
