@@ -245,8 +245,7 @@ $msg
 		<div class="col-sm-6 col-lg-4 " >
 			<div class="card bg gradient-custom text-center text-white" style="border-radius: 15px;";
 				$message
-				<h3>Profile</h3>
-				<br>
+				<h3>Welcome</h3>
 				<h3>$firstname $lastname</h3>
 				<figure><img src = "images/$image_name" alt= "Profile image" class="img-fluid my-5" style="width: 80px;">
 				</figure>				

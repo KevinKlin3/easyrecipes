@@ -160,6 +160,10 @@ input[type=submit]:hover {
   color: var(--bs-gray-800);
   text-align: left;
 }
+
+#sml-img {
+  max-width: 8px;
+}
 /* large screens */
 @media screen and (max-width: 1080px) {
   main  {margin:5%;}
